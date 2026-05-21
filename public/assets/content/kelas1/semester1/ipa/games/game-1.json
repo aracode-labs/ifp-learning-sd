@@ -1,0 +1,86 @@
+{
+  "id": "game-1",
+  "title": "Drag & Drop: Hewan dan Makanannya",
+  "type": "drag-drop",
+  "description": "Tarik hewan ke makanan yang sesuai untuk dimakan",
+  "difficulty": "mudah",
+  "duration": 300,
+  "points": 50,
+  "pairs": [
+    {
+      "id": "pair-1",
+      "source": {
+        "type": "image",
+        "label": "Ayam",
+        "asset": "game-1-assets/ayam.png"
+      },
+      "target": {
+        "type": "image",
+        "label": "Biji",
+        "asset": "game-1-assets/biji.png"
+      },
+      "points": 10
+    },
+    {
+      "id": "pair-2",
+      "source": {
+        "type": "image",
+        "label": "Sapi",
+        "asset": "game-1-assets/sapi.png"
+      },
+      "target": {
+        "type": "image",
+        "label": "Rumput",
+        "asset": "game-1-assets/rumput.png"
+      },
+      "points": 10
+    },
+    {
+      "id": "pair-3",
+      "source": {
+        "type": "image",
+        "label": "Kucing",
+        "asset": "game-1-assets/kucing.png"
+      },
+      "target": {
+        "type": "image",
+        "label": "Ikan",
+        "asset": "game-1-assets/ikan.png"
+      },
+      "points": 10
+    },
+    {
+      "id": "pair-4",
+      "source": {
+        "type": "image",
+        "label": "Lebah",
+        "asset": "game-1-assets/lebah.png"
+      },
+      "target": {
+        "type": "image",
+        "label": "Bunga",
+        "asset": "game-1-assets/bunga.png"
+      },
+      "points": 10
+    },
+    {
+      "id": "pair-5",
+      "source": {
+        "type": "image",
+        "label": "Burung",
+        "asset": "game-1-assets/burung.png"
+      },
+      "target": {
+        "type": "image",
+        "label": "Cacing",
+        "asset": "game-1-assets/cacing.png"
+      },
+      "points": 10
+    }
+  ],
+  "feedback": {
+    "correct": "🎉 Benar! Hewan ini memang makan makanan itu!",
+    "incorrect": "❌ Coba lagi! Hewan ini makan makanan yang lain.",
+    "completed": "✅ Selamat! Kamu telah menyelesaikan semua pasangan hewan dan makanannya dengan sempurna!"
+  }
+}

@@ -4,80 +4,87 @@
   "subject": "IPA",
   "subjectCode": "ipa",
   "icon": "🔬",
-  "materials": [
-    {
-      "id": "ipa-k1s1-m1",
-      "title": "Makhluk Hidup di Sekitarku",
-      "chapter": 1,
-      "description": "Pengenalan berbagai makhluk hidup di sekitar kita",
-      "duration_minutes": 30,
-      "content": "Makhluk hidup adalah semua yang memiliki nafas dan bergerak. Ada banyak jenis makhluk hidup di dunia kita...",
-      "difficulty": "mudah"
-    },
-    {
-      "id": "ipa-k1s1-m2",
-      "title": "Tumbuhan dan Manfaatnya",
-      "chapter": 2,
-      "description": "Mengenal jenis-jenis tumbuhan dan manfaatnya bagi manusia",
-      "duration_minutes": 25,
-      "content": "Tumbuhan adalah makhluk hidup yang tidak bisa bergerak berpindah tempat. Ada tumbuhan yang memiliki bunga...",
-      "difficulty": "mudah"
-    }
-  ],
-  "videos": [
-    {
-      "id": "video-k1s1-1",
-      "title": "Siklus Kehidupan Hewan",
-      "chapter": 1,
-      "url": "/videos/kelas1-siklus-hewan.mp4",
-      "duration_seconds": 300,
-      "thumbnail": "/thumbnails/siklus-hewan.jpg"
-    }
-  ],
-  "quizzes": [
-    {
-      "id": "quiz-k1s1-1",
-      "title": "Kuis: Makhluk Hidup",
-      "chapter": 1,
-      "questions": [
-        {
-          "id": "q1",
-          "question": "Apa yang dimaksud makhluk hidup?",
-          "type": "multiple_choice",
-          "options": [
-            "Segala sesuatu yang bergerak",
-            "Segala sesuatu yang memiliki nafas dan berkembang biak",
-            "Segala sesuatu yang bisa terbang",
-            "Segala sesuatu yang bisa berenang"
-          ],
-          "correct_answer": 1,
-          "points": 10
-        },
-        {
-          "id": "q2",
-          "question": "Berikan contoh tiga makhluk hidup!",
-          "type": "essay",
-          "points": 20
-        }
-      ]
-    }
-  ],
-  "interactive_content": [
-    {
-      "id": "interactive-k1s1-1",
-      "title": "Drag & Drop: Pasangkan Hewan dengan Habitat",
-      "chapter": 1,
-      "description": "Seret gambar hewan ke habitat yang sesuai",
-      "type": "drag_drop"
-    }
-  ],
-  "models_3d": [
-    {
-      "id": "model-k1s1-1",
-      "title": "Model 3D: Struktur Daun",
-      "chapter": 2,
-      "modelUrl": "/models/kelas1/struktur-daun.glb",
-      "description": "Lihat struktur daun dari berbagai sudut"
-    }
-  ]
+  "content": {
+    "membaca": [
+      {
+        "id": "content-1",
+        "title": "Makhluk Hidup di Sekitarku",
+        "chapter": 1,
+        "description": "Pengenalan berbagai makhluk hidup di sekitar kita",
+        "duration_minutes": 15,
+        "difficulty": "mudah",
+        "basePath": "/assets/content/kelas1/semester1/ipa/membaca/content-1",
+        "htmlFile": "/assets/content/kelas1/semester1/ipa/membaca/content-1/index.html",
+        "thumbnail": "/assets/content/kelas1/semester1/ipa/membaca/content-1/thumbnail.jpg"
+      },
+      {
+        "id": "content-2",
+        "title": "Tumbuhan dan Manfaatnya",
+        "chapter": 2,
+        "description": "Mengenal jenis-jenis tumbuhan dan manfaatnya bagi manusia",
+        "duration_minutes": 15,
+        "difficulty": "mudah",
+        "basePath": "/assets/content/kelas1/semester1/ipa/membaca/content-2",
+        "htmlFile": "/assets/content/kelas1/semester1/ipa/membaca/content-2/index.html",
+        "thumbnail": "/assets/content/kelas1/semester1/ipa/membaca/content-2/thumbnail.jpg"
+      }
+    ],
+    "videos": [
+      {
+        "id": "video-1",
+        "title": "Siklus Kehidupan Hewan",
+        "chapter": 1,
+        "url": "/assets/content/kelas1/semester1/ipa/videos/video-1.mp4",
+        "duration_seconds": 300,
+        "thumbnail": "/assets/content/kelas1/semester1/ipa/videos/video-1-thumbnail.jpg"
+      },
+      {
+        "id": "video-2",
+        "title": "Pertumbuhan Tumbuhan",
+        "chapter": 2,
+        "url": "/assets/content/kelas1/semester1/ipa/videos/video-2.mp4",
+        "duration_seconds": 240,
+        "thumbnail": "/assets/content/kelas1/semester1/ipa/videos/video-2-thumbnail.jpg"
+      }
+    ],
+    "quizzes": [
+      {
+        "id": "quiz-1",
+        "title": "Kuis: Makhluk Hidup",
+        "chapter": 1,
+        "difficulty": "mudah",
+        "dataFile": "/assets/content/kelas1/semester1/ipa/quizzes/quiz-1.json"
+      }
+    ],
+    "games": [
+      {
+        "id": "game-1",
+        "title": "Drag & Drop: Hewan dan Makanannya",
+        "chapter": 1,
+        "type": "drag_drop",
+        "description": "Tarik hewan ke makanannya",
+        "difficulty": "mudah",
+        "points": 50,
+        "dataFile": "/assets/content/kelas1/semester1/ipa/games/game-1.json"
+      }
+    ],
+    "models_3d": [
+      {
+        "id": "3d-1",
+        "title": "Model 3D: Struktur Daun",
+        "chapter": 2,
+        "modelUrl": "/assets/content/kelas1/semester1/ipa/models-3d/model-1.glb",
+        "thumbnail": "/assets/content/kelas1/semester1/ipa/models-3d/model-1-thumbnail.jpg",
+        "description": "Lihat struktur daun dari berbagai sudut"
+      },
+      {
+        "id": "3d-2",
+        "title": "Model 3D: Struktur Bunga",
+        "chapter": 2,
+        "modelUrl": "/assets/content/kelas1/semester1/ipa/models-3d/model-2.glb",
+        "thumbnail": "/assets/content/kelas1/semester1/ipa/models-3d/model-2-thumbnail.jpg",
+        "description": "Lihat struktur bunga dan bagian-bagiannya"
+      }
+    ]
+  }
 }
