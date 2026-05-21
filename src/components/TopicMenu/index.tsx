@@ -37,22 +37,21 @@ const TopicMenu: React.FC = () => {
 
       <div className={styles.list}>
         {materials.map((material: any) => (
-          <button
+          <div
             key={material.id}
             className={styles.item}
             onClick={() => handleSelectTopic(material.id)}
           >
-            <div className={styles.content}>
+            <div className={styles.cardContent}>
               <h3 className={styles.itemTitle}>{material.title}</h3>
               <p className={styles.itemDescription}>{material.description}</p>
               <div className={styles.meta}>
                 <span className={styles.chapter}>Bab {material.chapter}</span>
                 <span className={styles.duration}>⏱ {material.duration_minutes} menit</span>
-                <span className={styles.difficulty}>📊 {material.difficulty}</span>
               </div>
+              <button className={styles.viewButton}>Lihat Materi</button>
             </div>
-            <div className={styles.arrow}>→</div>
-          </button>
+          </div>
         ))}
       </div>
     </div>
