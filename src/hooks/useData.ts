@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { loadData, LoadOptions } from '@/utils/dataLoader';
+import { loadData, loadSubjectContent, LoadOptions } from '@/utils/dataLoader';
 
 interface UseDataState<T> {
   data: T | null;
@@ -54,16 +54,56 @@ export function useData<T = any>(
 }
 
 /**
- * Hook untuk load subjects metadata
+ * Hook untuk load subjects by class
  */
-export function useSubjects() {
-  return useData('/subjects.json');
+export function useSubjectsByClass() {
+  return useData('/subjects-by-class.json');
 }
 
 /**
- * Hook untuk load subject detail
- * @param subjectId - Subject ID
+ * Hook untuk load subject content untuk kelas dan semester tertentu
+ * @param kelas - Kelas (1-6)
+ * @param semester - Semester (1-2)
+ * @param subjectCode - Subject code
  */
-export function useSubjectDetail(subjectId: string) {
-  return useData(`/subjects/${subjectId}/index.json`);
+export function useSubjectContent(kelas: number | null, semester: number | null, subjectCode: string | null) {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    if (!kelas || !semester || !subjectCode) {
+      setData(null);
+      return;
+    }
+
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const result = await loadSubjectContent(kelas, semester, subjectCode);
+        if (isMounted) {
+          setData(result);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err instanceof Error ? err : new Error(String(err)));
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [kelas, semester, subjectCode]);
+
+  return { data, loading, error };
 }

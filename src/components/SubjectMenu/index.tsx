@@ -1,32 +1,30 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '@/context/AppContext';
-import { useSubjects } from '@/hooks/useData';
+import { useData } from '@/hooks/useData';
 import styles from './SubjectMenu.module.css';
 
 interface Subject {
   id: string;
   name: string;
   icon: string;
-  grades: number[];
-  description: string;
 }
 
 const SubjectMenu: React.FC = () => {
   const navigate = useNavigate();
   const { selectedGrade, setSelectedSubject } = useAppContext();
-  const { data: subjectsData, loading, error } = useSubjects();
+  const { data: subjectsData, loading, error } = useData('/subjects-by-class.json');
 
   if (loading) return <div className={styles.container}>Loading...</div>;
   if (error) return <div className={styles.container}>Error: {error.message}</div>;
+  if (!subjectsData) return <div className={styles.container}>No data</div>;
 
-  const subjects = (subjectsData?.subjects || []).filter(
-    (s: Subject) => selectedGrade && s.grades.includes(selectedGrade)
-  );
+  const classData = (subjectsData?.classes || []).find((c: any) => c.kelas === selectedGrade);
+  const subjects = classData?.subjects || [];
 
-  const handleSelectSubject = (subjectId: string) => {
-    setSelectedSubject(subjectId);
-    navigate(`/topics/${subjectId}`);
+  const handleSelectSubject = (subjectCode: string) => {
+    setSelectedSubject(subjectCode);
+    navigate(`/topics/${subjectCode}`);
   };
 
   return (
@@ -48,7 +46,6 @@ const SubjectMenu: React.FC = () => {
           >
             <div className={styles.icon}>{subject.icon}</div>
             <h3 className={styles.name}>{subject.name}</h3>
-            <p className={styles.description}>{subject.description}</p>
           </button>
         ))}
       </div>
