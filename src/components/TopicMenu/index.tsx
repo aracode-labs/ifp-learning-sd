@@ -6,12 +6,12 @@ import styles from './TopicMenu.module.css';
 
 const TopicMenu: React.FC = () => {
   const navigate = useNavigate();
-  const { subjectCode } = useParams<{ subjectCode: string }>();
+  const { subjectId } = useParams<{ subjectId: string }>();
   const { selectedGrade, selectedSemester, setSelectedTopic } = useAppContext();
   const { data: subjectDetail, loading, error } = useSubjectContent(
     selectedGrade,
     selectedSemester,
-    subjectCode || null
+    subjectId || null
   );
 
   if (loading) return <div className={styles.container}>Loading...</div>;

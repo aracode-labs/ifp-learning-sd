@@ -1,9 +1,11 @@
 .container {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .filterBar {
@@ -79,15 +81,14 @@
 }
 
 .content {
-  flex: 1;
-  padding: 40px 20px;
+  padding: 30px 10px;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
 .classSection {
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   animation: slideUp 0.5s ease-out;
 }
 
@@ -126,65 +127,77 @@
 .subjectsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 10px;
+  width: 100%;
 }
 
 .subjectCard {
   background: white;
-  border: none;
+  border: 3px solid transparent;
   border-radius: 16px;
-  padding: 30px 20px;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
   transition: all 0.3s ease;
-  color: white;
   font-family: inherit;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  min-height: 200px;
-  position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 420px;
 }
 
 .subjectCard:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  border-color: #FFC107;
 }
 
-.subjectCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
+.cardImage {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
 }
 
-.subjectOverlay {
-  position: relative;
-  z-index: 2;
+.cardContent {
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.subjectIcon {
-  font-size: 48px;
-  line-height: 1;
+  gap: 8px;
+  flex: 1;
 }
 
 .subjectName {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
+  color: #333;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subjectMeta {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+.viewButton {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.viewButton:hover {
+  background: #1976D2;
+  transform: scale(1.02);
 }
 
 @media (max-width: 768px) {
@@ -219,19 +232,11 @@
   }
 
   .subjectsGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
 
   .subjectCard {
-    padding: 20px 15px;
-  }
-
-  .subjectIcon {
-    font-size: 36px;
-  }
-
-  .subjectName {
-    font-size: 12px;
+    height: auto;
   }
 }

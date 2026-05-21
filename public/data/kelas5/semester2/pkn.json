@@ -1,0 +1,70 @@
+{
+  "id": "pkn-5-2",
+  "subject": "PKN",
+  "kelas": 5,
+  "semester": 2,
+  "icon": "🇮🇩",
+  "color": "#F5B041",
+  "materials": [
+    {
+      "id": "pkn-1",
+      "title": "Identitas Nasional",
+      "description": "Mengenal lambang negara Indonesia",
+      "chapter": 1,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "pkn-2",
+      "title": "Aturan dan Norma",
+      "description": "Memahami aturan di sekolah dan rumah",
+      "chapter": 2,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "pkn-3",
+      "title": "Hak dan Kewajiban",
+      "description": "Belajar tentang hak dan kewajiban",
+      "chapter": 3,
+      "duration_minutes": 25,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "pkn-4",
+      "title": "Keragaman Indonesia",
+      "description": "Mengenal keragaman budaya Indonesia",
+      "chapter": 4,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "pkn-5",
+      "title": "Pancasila",
+      "description": "Belajar tentang nilai-nilai Pancasila",
+      "chapter": 5,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    }
+  ]
+}

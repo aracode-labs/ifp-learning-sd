@@ -99,22 +99,27 @@ const SubjectGrid: React.FC = () => {
 
             <div className={styles.subjectsGrid}>
               {group.subjects.map((subject) => (
-                <button
+                <div
                   key={subject.id}
                   className={styles.subjectCard}
                   onClick={() => handleSelectSubject(subject, group.kelas, group.semester)}
-                  style={{
-                    background: `linear-gradient(135deg, ${subject.color} 0%, ${subject.color}cc 100%)`,
-                    backgroundImage: `url(/content/kelas${group.kelas}-semester${group.semester}/${subject.id}/thumbnail/thumbnail.jpg)`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
                 >
-                  <div className={styles.subjectOverlay}>
-                    <div className={styles.subjectIcon}>{subject.icon}</div>
-                    <p className={styles.subjectName}>{subject.name}</p>
+                  <div
+                    className={styles.cardImage}
+                    style={{
+                      backgroundImage: `url(/content/kelas${group.kelas}-semester${group.semester}/${subject.id}/thumbnail/thumbnail.jpg)`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                  />
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.subjectName}>{subject.name}</h3>
+                    <p className={styles.subjectMeta}>
+                      Kelas {group.kelas} • Semester {group.semester}
+                    </p>
+                    <button className={styles.viewButton}>Lihat Topik</button>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
           </div>

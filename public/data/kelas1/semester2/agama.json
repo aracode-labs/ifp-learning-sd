@@ -1,0 +1,70 @@
+{
+  "id": "agama-1-2",
+  "subject": "Agama",
+  "kelas": 1,
+  "semester": 2,
+  "icon": "🙏",
+  "color": "#BB8FCE",
+  "materials": [
+    {
+      "id": "agama-1",
+      "title": "Aku Cinta Tuhan",
+      "description": "Belajar tentang rasa syukur kepada Tuhan",
+      "chapter": 1,
+      "duration_minutes": 15,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "agama-2",
+      "title": "Doa-doa Sederhana",
+      "description": "Belajar doa-doa dasar sehari-hari",
+      "chapter": 2,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "agama-3",
+      "title": "Akhlak Mulia",
+      "description": "Belajar tentang akhlak baik",
+      "chapter": 3,
+      "duration_minutes": 25,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "agama-4",
+      "title": "Perilaku Terpuji",
+      "description": "Mengenal perilaku yang baik",
+      "chapter": 4,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "agama-5",
+      "title": "Ibadah Dasar",
+      "description": "Belajar tentang ibadah dalam kehidupan sehari-hari",
+      "chapter": 5,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    }
+  ]
+}

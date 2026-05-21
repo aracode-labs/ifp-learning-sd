@@ -1,0 +1,70 @@
+{
+  "id": "ips-3-2",
+  "subject": "IPS",
+  "kelas": 3,
+  "semester": 2,
+  "icon": "🌍",
+  "color": "#A8D8EA",
+  "materials": [
+    {
+      "id": "ips-1",
+      "title": "Keluargaku",
+      "description": "Mengenal anggota keluarga",
+      "chapter": 1,
+      "duration_minutes": 15,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "ips-2",
+      "title": "Rumahku dan Lingkungannya",
+      "description": "Mengenal rumah dan lingkungan",
+      "chapter": 2,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "ips-3",
+      "title": "Budaya Daerahku",
+      "description": "Mengenal budaya lokal",
+      "chapter": 3,
+      "duration_minutes": 25,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "ips-4",
+      "title": "Pekerjaan Orang Tua",
+      "description": "Mengenal berbagai jenis pekerjaan",
+      "chapter": 4,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "ips-5",
+      "title": "Transportasi",
+      "description": "Belajar tentang alat transportasi",
+      "chapter": 5,
+      "duration_minutes": 15,
+      "content_types": [
+        "membaca",
+        "video",
+        "interaktif"
+      ]
+    }
+  ]
+}

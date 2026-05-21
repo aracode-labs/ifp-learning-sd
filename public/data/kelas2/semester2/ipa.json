@@ -1,0 +1,70 @@
+{
+  "id": "ipa-2-2",
+  "subject": "IPA",
+  "kelas": 2,
+  "semester": 2,
+  "icon": "🔬",
+  "color": "#FF6B6B",
+  "materials": [
+    {
+      "id": "ipa-1",
+      "title": "Bagian Tubuh Manusia",
+      "description": "Mengenal bagian tubuh dan fungsinya",
+      "chapter": 1,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "ipa-2",
+      "title": "Panca Indra",
+      "description": "Belajar tentang panca indra",
+      "chapter": 2,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "ipa-3",
+      "title": "Lingkungan Sekitar",
+      "description": "Mengenal lingkungan alam dan buatan",
+      "chapter": 3,
+      "duration_minutes": 25,
+      "content_types": [
+        "membaca",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "ipa-4",
+      "title": "Hewan dan Tumbuhan",
+      "description": "Klasifikasi hewan dan tumbuhan",
+      "chapter": 4,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "ipa-5",
+      "title": "Musim dan Cuaca",
+      "description": "Mengenal musim dan perubahan cuaca",
+      "chapter": 5,
+      "duration_minutes": 15,
+      "content_types": [
+        "membaca",
+        "video",
+        "3d"
+      ]
+    }
+  ]
+}

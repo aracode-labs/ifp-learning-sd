@@ -1,0 +1,65 @@
+{
+  "id": "penjas-3-1",
+  "subject": "Penjas",
+  "kelas": 3,
+  "semester": 1,
+  "icon": "⚽",
+  "color": "#85C1E9",
+  "materials": [
+    {
+      "id": "penjas-1",
+      "title": "Gerakan Dasar Tubuh",
+      "description": "Belajar gerakan dasar berjalan, berlari",
+      "chapter": 1,
+      "duration_minutes": 20,
+      "content_types": [
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "penjas-2",
+      "title": "Keseimbangan",
+      "description": "Melatih keseimbangan tubuh",
+      "chapter": 2,
+      "duration_minutes": 20,
+      "content_types": [
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "penjas-3",
+      "title": "Permainan Bola Besar",
+      "description": "Belajar bermain bola",
+      "chapter": 3,
+      "duration_minutes": 30,
+      "content_types": [
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "penjas-4",
+      "title": "Senam Ringan",
+      "description": "Latihan senam sederhana",
+      "chapter": 4,
+      "duration_minutes": 25,
+      "content_types": [
+        "video",
+        "interaktif"
+      ]
+    },
+    {
+      "id": "penjas-5",
+      "title": "Kebugaran Jasmani",
+      "description": "Belajar tentang kebugaran tubuh",
+      "chapter": 5,
+      "duration_minutes": 20,
+      "content_types": [
+        "video",
+        "interaktif"
+      ]
+    }
+  ]
+}

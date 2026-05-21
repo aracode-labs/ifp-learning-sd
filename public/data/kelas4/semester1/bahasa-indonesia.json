@@ -1,0 +1,70 @@
+{
+  "id": "bahasa-indonesia-4-1",
+  "subject": "Bahasa Indonesia",
+  "kelas": 4,
+  "semester": 1,
+  "icon": "📖",
+  "color": "#FFE66D",
+  "materials": [
+    {
+      "id": "bahasa-indonesia-1",
+      "title": "Belajar Membaca Huruf",
+      "description": "Pengenalan huruf A-Z",
+      "chapter": 1,
+      "duration_minutes": 15,
+      "content_types": [
+        "membaca",
+        "interaktif",
+        "video"
+      ]
+    },
+    {
+      "id": "bahasa-indonesia-2",
+      "title": "Membaca Kata Sederhana",
+      "description": "Membaca kata-kata pendek",
+      "chapter": 2,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "interaktif",
+        "video"
+      ]
+    },
+    {
+      "id": "bahasa-indonesia-3",
+      "title": "Menulis Huruf Kapital",
+      "description": "Belajar menulis huruf A-Z",
+      "chapter": 3,
+      "duration_minutes": 25,
+      "content_types": [
+        "membaca",
+        "interaktif",
+        "video"
+      ]
+    },
+    {
+      "id": "bahasa-indonesia-4",
+      "title": "Pengucapan Kata Dasar",
+      "description": "Melatih pengucapan",
+      "chapter": 4,
+      "duration_minutes": 15,
+      "content_types": [
+        "membaca",
+        "interaktif",
+        "video"
+      ]
+    },
+    {
+      "id": "bahasa-indonesia-5",
+      "title": "Mendengarkan dan Memahami",
+      "description": "Melatih kemampuan menyimak",
+      "chapter": 5,
+      "duration_minutes": 20,
+      "content_types": [
+        "membaca",
+        "interaktif",
+        "video"
+      ]
+    }
+  ]
+}

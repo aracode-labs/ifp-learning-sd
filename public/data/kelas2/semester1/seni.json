@@ -1,0 +1,70 @@
+{
+  "id": "seni-2-1",
+  "subject": "Seni",
+  "kelas": 2,
+  "semester": 1,
+  "icon": "🎨",
+  "color": "#F7DC6F",
+  "materials": [
+    {
+      "id": "seni-1",
+      "title": "Menggambar Bentuk",
+      "description": "Belajar menggambar bentuk dasar",
+      "chapter": 1,
+      "duration_minutes": 25,
+      "content_types": [
+        "interaktif",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "seni-2",
+      "title": "Pewarnaan",
+      "description": "Belajar teknik pewarnaan",
+      "chapter": 2,
+      "duration_minutes": 25,
+      "content_types": [
+        "interaktif",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "seni-3",
+      "title": "Kolase",
+      "description": "Membuat karya seni dari berbagai bahan",
+      "chapter": 3,
+      "duration_minutes": 30,
+      "content_types": [
+        "interaktif",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "seni-4",
+      "title": "Musik Tradisional",
+      "description": "Mengenal musik dan alat musik tradisional",
+      "chapter": 4,
+      "duration_minutes": 20,
+      "content_types": [
+        "interaktif",
+        "video",
+        "3d"
+      ]
+    },
+    {
+      "id": "seni-5",
+      "title": "Tari Tradisional",
+      "description": "Mempelajari tari-tari tradisional",
+      "chapter": 5,
+      "duration_minutes": 25,
+      "content_types": [
+        "interaktif",
+        "video",
+        "3d"
+      ]
+    }
+  ]
+}

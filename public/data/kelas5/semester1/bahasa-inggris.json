@@ -1,0 +1,70 @@
+{
+  "id": "bahasa-inggris-5-1",
+  "subject": "Bahasa Inggris",
+  "kelas": 5,
+  "semester": 1,
+  "icon": "🌐",
+  "color": "#95E1D3",
+  "materials": [
+    {
+      "id": "bahasa-inggris-1",
+      "title": "Greeting and Introduction",
+      "description": "Belajar sapa dan perkenalan",
+      "chapter": 1,
+      "duration_minutes": 15,
+      "content_types": [
+        "video",
+        "interaktif",
+        "quiz"
+      ]
+    },
+    {
+      "id": "bahasa-inggris-2",
+      "title": "Nama-nama Benda",
+      "description": "Belajar nama-nama benda dalam bahasa Inggris",
+      "chapter": 2,
+      "duration_minutes": 20,
+      "content_types": [
+        "video",
+        "interaktif",
+        "quiz"
+      ]
+    },
+    {
+      "id": "bahasa-inggris-3",
+      "title": "Warna dan Angka",
+      "description": "Mengenal warna dan angka",
+      "chapter": 3,
+      "duration_minutes": 20,
+      "content_types": [
+        "video",
+        "interaktif",
+        "quiz"
+      ]
+    },
+    {
+      "id": "bahasa-inggris-4",
+      "title": "Keluarga",
+      "description": "Belajar nama-nama anggota keluarga",
+      "chapter": 4,
+      "duration_minutes": 15,
+      "content_types": [
+        "video",
+        "interaktif",
+        "quiz"
+      ]
+    },
+    {
+      "id": "bahasa-inggris-5",
+      "title": "Hewan Peliharaan",
+      "description": "Belajar nama-nama hewan",
+      "chapter": 5,
+      "duration_minutes": 15,
+      "content_types": [
+        "video",
+        "interaktif",
+        "quiz"
+      ]
+    }
+  ]
+}

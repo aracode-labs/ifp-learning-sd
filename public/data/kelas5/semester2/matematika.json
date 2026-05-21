@@ -1,0 +1,70 @@
+{
+  "id": "matematika-5-2",
+  "subject": "Matematika",
+  "kelas": 5,
+  "semester": 2,
+  "icon": "🔢",
+  "color": "#4ECDC4",
+  "materials": [
+    {
+      "id": "matematika-1",
+      "title": "Mengenal Bilangan 1-10",
+      "description": "Pengenalan bilangan dasar",
+      "chapter": 1,
+      "duration_minutes": 20,
+      "content_types": [
+        "interaktif",
+        "quiz",
+        "video"
+      ]
+    },
+    {
+      "id": "matematika-2",
+      "title": "Penjumlahan Dasar",
+      "description": "Belajar menjumlah hingga 10",
+      "chapter": 2,
+      "duration_minutes": 25,
+      "content_types": [
+        "interaktif",
+        "quiz",
+        "video"
+      ]
+    },
+    {
+      "id": "matematika-3",
+      "title": "Pengurangan Dasar",
+      "description": "Belajar mengurangi hingga 10",
+      "chapter": 3,
+      "duration_minutes": 25,
+      "content_types": [
+        "interaktif",
+        "quiz",
+        "video"
+      ]
+    },
+    {
+      "id": "matematika-4",
+      "title": "Bentuk Geometri",
+      "description": "Mengenal segitiga, persegi, lingkaran",
+      "chapter": 4,
+      "duration_minutes": 20,
+      "content_types": [
+        "interaktif",
+        "quiz",
+        "video"
+      ]
+    },
+    {
+      "id": "matematika-5",
+      "title": "Pengukuran Panjang",
+      "description": "Belajar mengukur panjang benda",
+      "chapter": 5,
+      "duration_minutes": 15,
+      "content_types": [
+        "interaktif",
+        "quiz",
+        "video"
+      ]
+    }
+  ]
+}
