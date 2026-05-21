@@ -1,0 +1,547 @@
+{
+  "appName": "IFP Learning SD",
+  "version": "1.0.0",
+  "flow": [
+    {
+      "id": "splash-screen",
+      "name": "Splash Screen",
+      "type": "screen",
+      "duration": 2000,
+      "description": "Loading screen dengan animasi spinner",
+      "nextScreen": "greeting-screen",
+      "components": {
+        "title": "IFP Learning SD",
+        "subtitle": "Belajar dengan Menyenangkan"
+      }
+    },
+    {
+      "id": "greeting-screen",
+      "name": "Greeting Screen",
+      "type": "screen",
+      "description": "Halaman selamat datang dengan fitur-fitur utama",
+      "nextScreens": [
+        {
+          "action": "Mulai Belajar",
+          "target": "class-selector"
+        }
+      ],
+      "components": {
+        "title": "Selamat Datang di IFP Learning",
+        "features": [
+          {
+            "icon": "📚",
+            "title": "Pelajaran Lengkap",
+            "description": "Materi pembelajaran untuk kelas 1-6"
+          },
+          {
+            "icon": "🎮",
+            "title": "Interaktif & Menyenangkan",
+            "description": "Belajar sambil bermain dengan game edukatif"
+          },
+          {
+            "icon": "⭐",
+            "title": "Pembelajaran Personal",
+            "description": "Disesuaikan dengan kecepatan belajar Anda"
+          }
+        ]
+      }
+    },
+    {
+      "id": "class-selector",
+      "name": "Class Selector",
+      "type": "screen",
+      "description": "Pilih kelas dan semester",
+      "state": {
+        "selectedGrade": null,
+        "selectedSemester": null
+      },
+      "nextScreens": [
+        {
+          "action": "Lanjut",
+          "condition": "selectedGrade && selectedSemester",
+          "target": "subject-menu"
+        }
+      ],
+      "components": {
+        "grades": [1, 2, 3, 4, 5, 6],
+        "semesters": [1, 2]
+      }
+    },
+    {
+      "id": "subject-menu",
+      "name": "Subject Menu",
+      "type": "screen",
+      "description": "Pilih pelajaran berdasarkan kelas yang dipilih",
+      "dataSource": {
+        "type": "json",
+        "path": "/content/subjects-by-class.json"
+      },
+      "state": {
+        "selectedGrade": "from-previous",
+        "selectedSemester": "from-previous",
+        "selectedSubject": null
+      },
+      "nextScreens": [
+        {
+          "action": "Pilih Pelajaran",
+          "target": "topic-menu"
+        }
+      ],
+      "components": {
+        "display": "grid",
+        "subjects": [
+          {
+            "id": "ipa",
+            "name": "IPA",
+            "icon": "🔬",
+            "thumbnail": "/content/thumbnails/subject/ipa.jpg"
+          },
+          {
+            "id": "matematika",
+            "name": "Matematika",
+            "icon": "🔢",
+            "thumbnail": "/content/thumbnails/subject/matematika.jpg"
+          },
+          {
+            "id": "bahasa-indonesia",
+            "name": "Bahasa Indonesia",
+            "icon": "📖",
+            "thumbnail": "/content/thumbnails/subject/bahasa-indonesia.jpg"
+          },
+          {
+            "id": "bahasa-inggris",
+            "name": "Bahasa Inggris",
+            "icon": "🌐",
+            "thumbnail": "/content/thumbnails/subject/bahasa-inggris.jpg"
+          },
+          {
+            "id": "ips",
+            "name": "IPS",
+            "icon": "🌍",
+            "thumbnail": "/content/thumbnails/subject/ips.jpg"
+          },
+          {
+            "id": "seni",
+            "name": "Seni",
+            "icon": "🎨",
+            "thumbnail": "/content/thumbnails/subject/seni.jpg"
+          },
+          {
+            "id": "penjas",
+            "name": "Penjas",
+            "icon": "⚽",
+            "thumbnail": "/content/thumbnails/subject/penjas.jpg"
+          },
+          {
+            "id": "pkn",
+            "name": "PKN",
+            "icon": "🇮🇩",
+            "thumbnail": "/content/thumbnails/subject/pkn.jpg"
+          },
+          {
+            "id": "agama",
+            "name": "Agama",
+            "icon": "🙏",
+            "thumbnail": "/content/thumbnails/subject/agama.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "id": "topic-menu",
+      "name": "Topic Menu",
+      "type": "screen",
+      "description": "Lihat topik/bab dalam pelajaran yang dipilih",
+      "dataSource": {
+        "type": "json",
+        "path": "/content/{kelas}-semester{semester}/{subject}/topik-{topicNumber}/metadata.json"
+      },
+      "state": {
+        "selectedGrade": "from-previous",
+        "selectedSemester": "from-previous",
+        "selectedSubject": "from-previous",
+        "selectedTopic": null
+      },
+      "nextScreens": [
+        {
+          "action": "Pilih Topik",
+          "target": "content-selector"
+        }
+      ],
+      "components": {
+        "display": "list",
+        "topics": [
+          {
+            "topicNumber": 1,
+            "title": "Topik 1",
+            "description": "Pengenalan dasar",
+            "thumbnail": "/content/thumbnails/content/topik-1.jpg"
+          },
+          {
+            "topicNumber": 2,
+            "title": "Topik 2",
+            "description": "Pengembangan konsep",
+            "thumbnail": "/content/thumbnails/content/topik-2.jpg"
+          },
+          {
+            "topicNumber": 3,
+            "title": "Topik 3",
+            "description": "Aplikasi praktis",
+            "thumbnail": "/content/thumbnails/content/topik-3.jpg"
+          },
+          {
+            "topicNumber": 4,
+            "title": "Topik 4",
+            "description": "Studi kasus",
+            "thumbnail": "/content/thumbnails/content/topik-4.jpg"
+          },
+          {
+            "topicNumber": 5,
+            "title": "Topik 5",
+            "description": "Latihan lanjutan",
+            "thumbnail": "/content/thumbnails/content/topik-5.jpg"
+          },
+          {
+            "topicNumber": 6,
+            "title": "Topik 6",
+            "description": "Evaluasi & review",
+            "thumbnail": "/content/thumbnails/content/topik-6.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "id": "content-selector",
+      "name": "Content Selector",
+      "type": "screen",
+      "description": "Pilih tipe konten pembelajaran",
+      "state": {
+        "selectedGrade": "from-previous",
+        "selectedSemester": "from-previous",
+        "selectedSubject": "from-previous",
+        "selectedTopic": "from-previous",
+        "selectedContentType": null
+      },
+      "nextScreens": [
+        {
+          "action": "Membaca",
+          "contentType": "membaca",
+          "target": "material-viewer"
+        },
+        {
+          "action": "Interaktif",
+          "contentType": "interaktif",
+          "target": "interactive-viewer"
+        },
+        {
+          "action": "Video",
+          "contentType": "video",
+          "target": "video-viewer"
+        },
+        {
+          "action": "3D Model",
+          "contentType": "models-3d",
+          "target": "model-viewer"
+        },
+        {
+          "action": "Kuis & Games",
+          "contentType": "quiz",
+          "target": "quiz-viewer"
+        },
+        {
+          "action": "Evaluasi",
+          "contentType": "evaluasi",
+          "target": "evaluation-viewer"
+        }
+      ],
+      "components": {
+        "display": "grid",
+        "contentTypes": [
+          {
+            "id": "membaca",
+            "title": "📚 Membaca",
+            "color": "#FF6B6B",
+            "description": "Baca materi pembelajaran",
+            "path": "/content/{kelas}-semester{semester}/{subject}/membaca"
+          },
+          {
+            "id": "interaktif",
+            "title": "🎮 Interaktif",
+            "color": "#4ECDC4",
+            "description": "Game edukatif",
+            "path": "/content/{kelas}-semester{semester}/{subject}/interaktif"
+          },
+          {
+            "id": "video",
+            "title": "🎬 Video",
+            "color": "#FFE66D",
+            "description": "Video pembelajaran",
+            "path": "/content/{kelas}-semester{semester}/{subject}/videos"
+          },
+          {
+            "id": "models-3d",
+            "title": "🎨 3D Model",
+            "color": "#95E1D3",
+            "description": "Model 3D interaktif",
+            "path": "/content/{kelas}-semester{semester}/{subject}/models-3d"
+          },
+          {
+            "id": "quiz",
+            "title": "❓ Kuis & Games",
+            "color": "#A8D8EA",
+            "description": "Tes pemahaman",
+            "path": "/content/{kelas}-semester{semester}/{subject}/quiz"
+          },
+          {
+            "id": "evaluasi",
+            "title": "✅ Evaluasi",
+            "color": "#AA96DA",
+            "description": "Tes formatif",
+            "path": "/content/{kelas}-semester{semester}/{subject}/evaluasi"
+          }
+        ]
+      }
+    },
+    {
+      "id": "material-viewer",
+      "name": "Material Viewer",
+      "type": "viewer",
+      "description": "Tampilkan materi pembelajaran (HTML)",
+      "contentType": "membaca",
+      "dataSource": {
+        "type": "html",
+        "path": "/content/{kelas}-semester{semester}/{subject}/topik-{topic}/materi-{contentIndex}/index.html"
+      },
+      "state": {
+        "allPreviousState": "from-context",
+        "contentIndex": 1,
+        "maxContent": 3
+      },
+      "actions": {
+        "next": {
+          "condition": "contentIndex < maxContent",
+          "action": "Load next material",
+          "target": "material-viewer"
+        },
+        "prev": {
+          "condition": "contentIndex > 1",
+          "action": "Load previous material",
+          "target": "material-viewer"
+        },
+        "back": {
+          "action": "Kembali ke pilihan konten",
+          "target": "content-selector"
+        }
+      }
+    },
+    {
+      "id": "interactive-viewer",
+      "name": "Interactive Viewer",
+      "type": "viewer",
+      "description": "Tampilkan konten interaktif",
+      "contentType": "interaktif",
+      "dataSource": {
+        "type": "html",
+        "path": "/content/{kelas}-semester{semester}/{subject}/topik-{topic}/interaktif/index.html"
+      },
+      "state": {
+        "allPreviousState": "from-context"
+      },
+      "actions": {
+        "back": {
+          "action": "Kembali ke pilihan konten",
+          "target": "content-selector"
+        },
+        "finish": {
+          "action": "Selesai berinteraksi",
+          "target": "content-selector"
+        }
+      }
+    },
+    {
+      "id": "video-viewer",
+      "name": "Video Viewer",
+      "type": "viewer",
+      "description": "Tampilkan video pembelajaran",
+      "contentType": "video",
+      "dataSource": {
+        "type": "video",
+        "path": "/content/{kelas}-semester{semester}/{subject}/videos/video.mp4"
+      },
+      "state": {
+        "allPreviousState": "from-context"
+      },
+      "actions": {
+        "back": {
+          "action": "Kembali ke pilihan konten",
+          "target": "content-selector"
+        }
+      }
+    },
+    {
+      "id": "model-viewer",
+      "name": "Model Viewer",
+      "type": "viewer",
+      "description": "Tampilkan model 3D interaktif",
+      "contentType": "models-3d",
+      "dataSource": {
+        "type": "3d-model",
+        "format": "glb",
+        "path": "/content/{kelas}-semester{semester}/{subject}/models-3d/model.glb"
+      },
+      "state": {
+        "allPreviousState": "from-context"
+      },
+      "features": {
+        "orbit": true,
+        "zoom": true,
+        "autoRotate": true,
+        "fullscreen": true
+      },
+      "actions": {
+        "back": {
+          "action": "Kembali ke pilihan konten",
+          "target": "content-selector"
+        }
+      }
+    },
+    {
+      "id": "quiz-viewer",
+      "name": "Quiz Viewer",
+      "type": "viewer",
+      "description": "Tampilkan kuis dan games",
+      "contentType": "quiz",
+      "dataSource": {
+        "type": "json",
+        "path": "/content/{kelas}-semester{semester}/{subject}/topik-{topic}/evaluasi/quiz.json"
+      },
+      "state": {
+        "allPreviousState": "from-context",
+        "currentQuestion": 0,
+        "score": 0,
+        "answers": []
+      },
+      "features": {
+        "timer": true,
+        "scoring": true,
+        "feedback": true,
+        "progressBar": true
+      },
+      "actions": {
+        "answer": {
+          "action": "Submit answer",
+          "target": "quiz-viewer"
+        },
+        "next": {
+          "condition": "currentQuestion < totalQuestions",
+          "action": "Next question",
+          "target": "quiz-viewer"
+        },
+        "finish": {
+          "action": "Selesai kuis",
+          "target": "quiz-result"
+        },
+        "back": {
+          "action": "Kembali ke pilihan konten",
+          "target": "content-selector"
+        }
+      }
+    },
+    {
+      "id": "quiz-result",
+      "name": "Quiz Result",
+      "type": "screen",
+      "description": "Tampilkan hasil kuis",
+      "state": {
+        "allPreviousState": "from-context",
+        "finalScore": "from-quiz-viewer",
+        "totalQuestions": "from-quiz-data"
+      },
+      "nextScreens": [
+        {
+          "action": "Kembali ke Konten",
+          "target": "content-selector"
+        },
+        {
+          "action": "Ulangi Kuis",
+          "target": "quiz-viewer"
+        }
+      ]
+    },
+    {
+      "id": "evaluation-viewer",
+      "name": "Evaluation Viewer",
+      "type": "viewer",
+      "description": "Tampilkan evaluasi formal",
+      "contentType": "evaluasi",
+      "dataSource": {
+        "type": "json",
+        "path": "/content/{kelas}-semester{semester}/{subject}/topik-{topic}/evaluasi/index.html"
+      },
+      "state": {
+        "allPreviousState": "from-context"
+      },
+      "actions": {
+        "back": {
+          "action": "Kembali ke pilihan konten",
+          "target": "content-selector"
+        }
+      }
+    }
+  ],
+  "dataStructure": {
+    "pathPattern": "/content/{kelas}-semester{semester}/{subject}/topik-{topic}/{contentType}/",
+    "variables": {
+      "kelas": "1-6",
+      "semester": "1-2",
+      "subject": "ipa | matematika | bahasa-indonesia | bahasa-inggris | ips | seni | penjas | pkn | agama",
+      "topic": "1-6",
+      "contentType": "membaca | interaktif | videos | models-3d | quizzes | evaluasi"
+    },
+    "fileStructure": {
+      "membaca": {
+        "structure": "materi-1/ materi-2/ materi-3/",
+        "files": "index.html"
+      },
+      "interaktif": {
+        "structure": "interaktif/",
+        "files": "index.html"
+      },
+      "videos": {
+        "structure": "videos/",
+        "files": "video-1.mp4, video-1-thumbnail.jpg"
+      },
+      "models-3d": {
+        "structure": "models-3d/",
+        "files": "model-1.glb, model-1-thumbnail.jpg"
+      },
+      "quizzes": {
+        "structure": "topik-{topic}/evaluasi/",
+        "files": "quiz.json, index.html"
+      },
+      "evaluasi": {
+        "structure": "topik-{topic}/evaluasi/",
+        "files": "index.html"
+      }
+    }
+  },
+  "stateManagement": {
+    "globalState": {
+      "selectedGrade": "number | null",
+      "selectedSemester": "number | null",
+      "selectedSubject": "string | null",
+      "selectedTopic": "number | null",
+      "selectedContentType": "string | null",
+      "userProgress": "object",
+      "userScores": "object"
+    },
+    "context": "AppContext",
+    "persistance": "localStorage"
+  },
+  "navigation": {
+    "backButton": "Always available",
+    "homeButton": "Available from any screen except splash",
+    "breadcrumb": "Show current path",
+    "menuAccess": "Side menu or bottom navigation"
+  }
+}
