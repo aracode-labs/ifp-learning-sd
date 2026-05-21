@@ -1,0 +1,56 @@
+{
+  "subject": "Matematika",
+  "shortCode": "mtk",
+  "icon": "🔢",
+  "grades": [1, 2, 3, 4, 5, 6],
+  "materials": [
+    {
+      "id": "mtk-kelas1-1",
+      "title": "Penjumlahan dan Pengurangan 1-10",
+      "grade": 1,
+      "chapter": 1,
+      "content": "Belajar menjumlah dan mengurang angka 1 sampai 10",
+      "content_file": "materials/kelas1-penjumlahan.md",
+      "difficulty": "mudah",
+      "duration_minutes": 25
+    }
+  ],
+  "videos": [
+    {
+      "id": "mtk-video-1",
+      "title": "Cara Menjumlah Bilangan Dasar",
+      "grade": 1,
+      "url": "videos/penjumlahan-dasar.mp4",
+      "duration_seconds": 360,
+      "thumbnail": "thumbnails/penjumlahan.jpg"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "mtk-quiz-1",
+      "title": "Kuis Penjumlahan Kelas 1",
+      "grade": 1,
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "question": "2 + 3 = ?",
+          "options": ["4", "5", "6", "7"],
+          "answer": 1,
+          "points": 10
+        }
+      ],
+      "pass_score": 70
+    }
+  ],
+  "simulations": [
+    {
+      "id": "mtk-sim-1",
+      "title": "Simulasi Penjumlahan Interaktif",
+      "grade": 1,
+      "description": "Praktik penjumlahan dengan blok dan benda",
+      "type": "interactive_math",
+      "content": "sim_data/penjumlahan-interaktif.json"
+    }
+  ]
+}

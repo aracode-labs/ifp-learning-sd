@@ -1,0 +1,56 @@
+{
+  "subject": "IPA",
+  "shortCode": "ipa",
+  "icon": "🔬",
+  "grades": [3, 4, 5, 6],
+  "materials": [
+    {
+      "id": "ipa-kelas3-1",
+      "title": "Makhluk Hidup dan Habitatnya",
+      "grade": 3,
+      "chapter": 1,
+      "content": "Pengenalan berbagai makhluk hidup dan tempat tinggal mereka",
+      "content_file": "materials/kelas3-makhluk-hidup.md",
+      "difficulty": "sedang",
+      "duration_minutes": 30
+    }
+  ],
+  "videos": [
+    {
+      "id": "ipa-video-1",
+      "title": "Siklus Hidup Kupu-Kupu",
+      "grade": 3,
+      "url": "videos/siklus-kupupu.mp4",
+      "duration_seconds": 420,
+      "thumbnail": "thumbnails/kupupu.jpg"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "ipa-quiz-1",
+      "title": "Kuis Makhluk Hidup",
+      "grade": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "question": "Ikan tinggal di?",
+          "options": ["Darat", "Air", "Udara", "Batang pohon"],
+          "answer": 1,
+          "points": 10
+        }
+      ],
+      "pass_score": 70
+    }
+  ],
+  "simulations": [
+    {
+      "id": "ipa-sim-1",
+      "title": "Simulasi Ekosistem",
+      "grade": 3,
+      "description": "Jelajahi ekosistem virtual",
+      "type": "ecosystem_explorer",
+      "content": "sim_data/ekosistem.json"
+    }
+  ]
+}

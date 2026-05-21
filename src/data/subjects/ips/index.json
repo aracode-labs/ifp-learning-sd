@@ -1,0 +1,56 @@
+{
+  "subject": "IPS",
+  "shortCode": "ips",
+  "icon": "🌍",
+  "grades": [3, 4, 5, 6],
+  "materials": [
+    {
+      "id": "ips-kelas3-1",
+      "title": "Keluarga dan Lingkungan",
+      "grade": 3,
+      "chapter": 1,
+      "content": "Pengenalan anggota keluarga dan lingkungan sekitar",
+      "content_file": "materials/kelas3-keluarga.md",
+      "difficulty": "mudah",
+      "duration_minutes": 20
+    }
+  ],
+  "videos": [
+    {
+      "id": "ips-video-1",
+      "title": "Anggota Keluargaku",
+      "grade": 3,
+      "url": "videos/anggota-keluarga.mp4",
+      "duration_seconds": 300,
+      "thumbnail": "thumbnails/keluarga.jpg"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "ips-quiz-1",
+      "title": "Kuis Keluarga",
+      "grade": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "question": "Ibu adalah keluarga?",
+          "options": ["Jauh", "Dekat", "Jauh sekali", "Tidak ada"],
+          "answer": 1,
+          "points": 10
+        }
+      ],
+      "pass_score": 70
+    }
+  ],
+  "simulations": [
+    {
+      "id": "ips-sim-1",
+      "title": "Peta Rumahku",
+      "grade": 3,
+      "description": "Buat peta rumah dan lingkungan",
+      "type": "map_builder",
+      "content": "sim_data/peta-rumah.json"
+    }
+  ]
+}

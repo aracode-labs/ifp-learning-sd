@@ -1,0 +1,56 @@
+{
+  "subject": "Pendidikan Kewarganegaraan",
+  "shortCode": "pkn",
+  "icon": "🏛️",
+  "grades": [3, 4, 5, 6],
+  "materials": [
+    {
+      "id": "pkn-kelas3-1",
+      "title": "Simbol Negara Indonesia",
+      "grade": 3,
+      "chapter": 1,
+      "content": "Pengenalan simbol negara: Garuda, bendera, lagu kebangsaan",
+      "content_file": "materials/kelas3-simbol-negara.md",
+      "difficulty": "mudah",
+      "duration_minutes": 20
+    }
+  ],
+  "videos": [
+    {
+      "id": "pkn-video-1",
+      "title": "Bendera Merah Putih",
+      "grade": 3,
+      "url": "videos/bendera-merah-putih.mp4",
+      "duration_seconds": 300,
+      "thumbnail": "thumbnails/bendera.jpg"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "pkn-quiz-1",
+      "title": "Kuis Simbol Negara",
+      "grade": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "question": "Warna bendera Indonesia adalah?",
+          "options": ["Biru putih", "Merah putih", "Hitam putih", "Kuning hitam"],
+          "answer": 1,
+          "points": 10
+        }
+      ],
+      "pass_score": 70
+    }
+  ],
+  "simulations": [
+    {
+      "id": "pkn-sim-1",
+      "title": "Perjalanan Nusantara",
+      "grade": 3,
+      "description": "Jelajahi keragaman Indonesia",
+      "type": "virtual_tour",
+      "content": "sim_data/perjalanan-nusantara.json"
+    }
+  ]
+}

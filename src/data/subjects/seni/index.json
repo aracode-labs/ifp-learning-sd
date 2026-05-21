@@ -1,0 +1,56 @@
+{
+  "subject": "Seni Budaya",
+  "shortCode": "seni",
+  "icon": "🎨",
+  "grades": [1, 2, 3, 4, 5, 6],
+  "materials": [
+    {
+      "id": "seni-kelas1-1",
+      "title": "Menggambar Bentuk Dasar",
+      "grade": 1,
+      "chapter": 1,
+      "content": "Belajar menggambar lingkaran, segitiga, dan persegi",
+      "content_file": "materials/kelas1-bentuk-dasar.md",
+      "difficulty": "mudah",
+      "duration_minutes": 20
+    }
+  ],
+  "videos": [
+    {
+      "id": "seni-video-1",
+      "title": "Cara Menggambar Bunga Sederhana",
+      "grade": 1,
+      "url": "videos/menggambar-bunga.mp4",
+      "duration_seconds": 360,
+      "thumbnail": "thumbnails/bunga.jpg"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "seni-quiz-1",
+      "title": "Kuis Warna dan Bentuk",
+      "grade": 1,
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "question": "Bentuk apa ini? (gambar lingkaran)",
+          "options": ["Lingkaran", "Segitiga", "Persegi", "Bintang"],
+          "answer": 0,
+          "points": 10
+        }
+      ],
+      "pass_score": 70
+    }
+  ],
+  "simulations": [
+    {
+      "id": "seni-sim-1",
+      "title": "Lukis Bebas Interaktif",
+      "grade": 1,
+      "description": "Kanvas digital untuk menggambar",
+      "type": "digital_canvas",
+      "content": "sim_data/lukis-bebas.json"
+    }
+  ]
+}

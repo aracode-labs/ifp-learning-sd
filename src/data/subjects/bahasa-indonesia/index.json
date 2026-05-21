@@ -1,0 +1,56 @@
+{
+  "subject": "Bahasa Indonesia",
+  "shortCode": "bi",
+  "icon": "📚",
+  "grades": [1, 2, 3, 4, 5, 6],
+  "materials": [
+    {
+      "id": "bi-kelas1-1",
+      "title": "Pengenalan Huruf dan Angka",
+      "grade": 1,
+      "chapter": 1,
+      "content": "Materi pengenalan huruf, membaca, dan menulis angka dasar",
+      "content_file": "materials/kelas1-pengenalan-huruf.md",
+      "difficulty": "mudah",
+      "duration_minutes": 15
+    }
+  ],
+  "videos": [
+    {
+      "id": "bi-video-1",
+      "title": "Belajar Membaca Vokal",
+      "grade": 1,
+      "url": "videos/vokal-lesson.mp4",
+      "duration_seconds": 300,
+      "thumbnail": "thumbnails/vokal.jpg"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "bi-quiz-1",
+      "title": "Kuis Pengenalan Huruf",
+      "grade": 1,
+      "questions": [
+        {
+          "id": "q1",
+          "type": "multiple_choice",
+          "question": "Huruf apa ini? (gambar A)",
+          "options": ["A", "B", "C", "D"],
+          "answer": 0,
+          "points": 10
+        }
+      ],
+      "pass_score": 70
+    }
+  ],
+  "simulations": [
+    {
+      "id": "bi-sim-1",
+      "title": "Simulasi Menulis Huruf",
+      "grade": 1,
+      "description": "Praktik menulis huruf secara interaktif",
+      "type": "writing_practice",
+      "content": "sim_data/menulis-huruf.json"
+    }
+  ]
+}
