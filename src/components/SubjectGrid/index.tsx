@@ -105,10 +105,15 @@ const SubjectGrid: React.FC = () => {
                   onClick={() => handleSelectSubject(subject, group.kelas, group.semester)}
                   style={{
                     background: `linear-gradient(135deg, ${subject.color} 0%, ${subject.color}cc 100%)`,
+                    backgroundImage: `url(/content/kelas${group.kelas}-semester${group.semester}/${subject.id}/thumbnail/thumbnail.jpg)`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                   }}
                 >
-                  <div className={styles.subjectIcon}>{subject.icon}</div>
-                  <p className={styles.subjectName}>{subject.name}</p>
+                  <div className={styles.subjectOverlay}>
+                    <div className={styles.subjectIcon}>{subject.icon}</div>
+                    <p className={styles.subjectName}>{subject.name}</p>
+                  </div>
                 </button>
               ))}
             </div>
