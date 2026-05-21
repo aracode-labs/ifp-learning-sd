@@ -22,7 +22,7 @@ const TopicMenu: React.FC = () => {
 
   const handleSelectTopic = (materialId: string) => {
     setSelectedTopic(materialId);
-    navigate(`/content-selector/${materialId}`);
+    navigate(`/topic-intro/${materialId}`);
   };
 
   return (

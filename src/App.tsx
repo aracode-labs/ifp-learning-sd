@@ -3,6 +3,7 @@ import { AppProvider } from '@/context/AppContext';
 import SplashScreen from '@/components/SplashScreen';
 import SubjectGrid from '@/components/SubjectGrid';
 import TopicMenu from '@/components/TopicMenu';
+import TopicIntro from '@/components/TopicIntro';
 import ContentSelector from '@/components/ContentSelector';
 import './App.css';
 
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<SplashScreen />} />
           <Route path="/subjects" element={<SubjectGrid />} />
           <Route path="/topics/:subjectId" element={<TopicMenu />} />
+          <Route path="/topic-intro/:topicId" element={<TopicIntro />} />
           <Route path="/content-selector/:topicId" element={<ContentSelector />} />
           <Route path="/content/:contentId/:topicId" element={<div>Content Viewer (Coming Soon)</div>} />
           <Route path="*" element={<Navigate to="/" />} />
