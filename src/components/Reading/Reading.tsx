@@ -228,17 +228,21 @@ const Reading: React.FC = () => {
               <div className="textContainer">
                 {/* Display all lines up to current index */}
                 {lines.length ? (
-                  lines.slice(0, currentLineIndex + 1).map((line, idx) => {
-                    const isCurrent = idx === currentLineIndex;
+                  lines.map((line, idx) => {
+                    const start = line.startTime ?? 0;
+                    const end = line.endTime ?? durationMs ?? (start + 1000);
+                    const isPast = currentTime >= end;
+                    const isCurrent = currentTime >= start && currentTime < end;
+
                     if (!isCurrent) {
                       return (
                         <p
                           key={idx}
-                          className={`textLine past`}
+                          className={`textLine ${isPast ? 'past' : ''}`}
                           onClick={() => {
                             const audio = audioRef.current;
                             if (audio) {
-                              audio.currentTime = line.startTime / 1000;
+                              audio.currentTime = start / 1000;
                               setCurrentTime(audio.currentTime * 1000);
                               if (!isPlaying) {
                                 audio.play();
@@ -253,13 +257,9 @@ const Reading: React.FC = () => {
                     }
 
                     // current line — render words with per-word timing
-                    const start = line.startTime || 0;
-                    const end = line.endTime || (durationMs || start + 1000);
-                    const words = line.text.split(/(\s+)/).filter(Boolean); // keep spaces so we can render them
-                    // compute elapsed within this cue
+                    const words = line.text.split(/(\s+)/).filter(Boolean);
                     const elapsed = Math.max(0, Math.min(end - start, currentTime - start));
                     const cueDur = Math.max(1, end - start);
-                    // determine which non-space token index is current
                     const tokenIndices = words.map((w, i) => ({ w, i, isSpace: /^\s+$/.test(w) }));
                     const nonSpaceCount = tokenIndices.filter(t => !t.isSpace).length || 1;
                     const wordIdx = Math.floor((elapsed / cueDur) * nonSpaceCount);
@@ -295,7 +295,7 @@ const Reading: React.FC = () => {
                       </p>
                     );
                   })
-                ) : (
+                 ) : (
                   <p className="textLine prompt">Memuat teks...</p>
                 )}
                 {/* If no lines yet, show prompt */}
