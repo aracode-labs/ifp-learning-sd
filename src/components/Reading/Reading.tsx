@@ -52,39 +52,84 @@ const Reading: React.FC = () => {
   // load source text and split into sentences/lines
   useEffect(() => {
     let mounted = true;
-    // prefer a precomputed JSON timeline if available
-    fetch('/audio/bacaan/ipa_dummy.json')
-      .then((res) => {
-        if (!mounted) return null;
-        if (!res.ok) return null;
-        return res.json();
-      })
-      .then((json) => {
-        if (!mounted) return;
-        if (json && Array.isArray(json.segments) && json.segments.length) {
-          // expected format: { segments: [{ text, start_ms, end_ms }, ...] }
-          const mapped: TextLine[] = json.segments.map((s: any) => ({ text: String(s.text || '').trim(), startTime: Number(s.start_ms || s.start || 0) }));
-          setLines(mapped);
-          setLoadingText(false);
-          return;
-        }
-        // fallback to plain text
-        return fetch('/audio/bacaan/ipa_dummy.txt').then((r) => r.text()).then((txt) => {
+
+    // Try to load .srt first (same base name as audio/text)
+    const tryLoadSrt = async () => {
+      try {
+        const srtResp = await fetch('/audio/bacaan/ipa_dummy.srt');
+        if (srtResp.ok) {
+          const srtText = await srtResp.text();
           if (!mounted) return;
-          const cleaned = txt.replace(/\s+/g, ' ').trim();
-          const parts = cleaned.split(/(?<=[\.\?\!])\s+/).map((s) => s.trim()).filter(Boolean);
-          const initial: TextLine[] = parts.map((p) => ({ text: p, startTime: 0 }));
-          setLines(initial);
+          const parsed = parseSrt(srtText);
+          setLines(parsed);
           setLoadingText(false);
-        });
-      })
-      .catch(() => {
+          return true;
+        }
+      } catch (e) {
+        // ignore and fallback
+      }
+      return false;
+    };
+
+    const loadTxtFallback = async () => {
+      try {
+        const res = await fetch('/audio/bacaan/ipa_dummy.txt');
+        const txt = await res.text();
+        if (!mounted) return;
+        const cleaned = txt.replace(/\s+/g, ' ').trim();
+        // split into sentences using punctuation (., ?, ?) followed by space
+        const parts = cleaned.split(/(?<=[\.\?\!])\s+/).map(s => s.trim()).filter(Boolean);
+        // initialize with placeholder startTime=0; actual startTime assigned on metadata
+        const initial: TextLine[] = parts.map((p) => ({ text: p, startTime: 0 }));
+        setLines(initial);
+      } catch (e) {
         if (!mounted) return;
         setLines([]);
-        setLoadingText(false);
-      });
+      } finally {
+        if (mounted) setLoadingText(false);
+      }
+    };
+
+    (async () => {
+      const srtLoaded = await tryLoadSrt();
+      if (!srtLoaded) await loadTxtFallback();
+    })();
+
     return () => { mounted = false; };
   }, []);
+
+
+  // parse a simple SRT file and return TextLine[] using the start time of each cue
+  function parseSrt(srt: string): TextLine[] {
+    const blocks = srt.split(/\r?\n\r?\n/).map(b => b.trim()).filter(Boolean);
+    const out: TextLine[] = [];
+    for (const block of blocks) {
+      const lines = block.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      if (lines.length < 2) continue;
+      // lines[0] may be index; lines[1] is timing
+      let timingLine = lines[1];
+      if (!/-->/.test(timingLine) && lines.length >= 3) {
+        timingLine = lines[2];
+      }
+      const match = timingLine.match(/(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})/);
+      if (!match) continue;
+      const start = srtTimeToMs(match[1]);
+      const text = lines.slice(lines.indexOf(timingLine) + 1).join(' ');
+      out.push({ text, startTime: start });
+    }
+    return out;
+  }
+
+  function srtTimeToMs(t: string): number {
+    // format HH:MM:SS,ms
+    const m = t.match(/(\d{2}):(\d{2}):(\d{2}),(\d{3})/);
+    if (!m) return 0;
+    const hh = parseInt(m[1], 10);
+    const mm = parseInt(m[2], 10);
+    const ss = parseInt(m[3], 10);
+    const ms = parseInt(m[4], 10);
+    return ((hh * 3600) + (mm * 60) + ss) * 1000 + ms;
+  }
 
   // when audio metadata loads, compute per-line start times by dividing duration
   const handleLoadedMetadata = () => {
@@ -93,6 +138,9 @@ const Reading: React.FC = () => {
     const durMs = (audio.duration || 0) * 1000;
     setDurationMs(durMs);
     if (!lines.length || durMs <= 0) return;
+    // If lines already have timing (from .srt), don't overwrite them.
+    const hasTiming = lines.some(ln => ln.startTime && ln.startTime > 0);
+    if (hasTiming) return;
     const segment = Math.max(200, Math.floor(durMs / lines.length));
     const mapped = lines.map((ln, i) => ({ ...ln, startTime: i * segment }));
     setLines(mapped);
