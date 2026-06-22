@@ -1,0 +1,13 @@
+.interactiveArea{display:flex;flex-direction:column;align-items:center;gap:16px;padding:12px}
+.interactivePlaceholder{display:flex;flex-direction:column;align-items:center;gap:8px}
+.interactivePlaceholder .muted{color:#234d77;opacity:0.8}
+.interactiveRunning{display:flex;flex-direction:column;gap:12px;align-items:center}
+.simCanvas{width:100%;max-width:920px;height:420px;background:linear-gradient(180deg,#081734,#0b2545);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
+.simControls{display:flex;gap:10px}
+
+@media(max-width:900px){
+  .simCanvas{height:260px}
+}
+
+/* interactive page background */
+.interactiveRoot{background-image:url('/background/bg_interactive.png') !important;background-size:cover;background-position:center center;background-attachment:fixed}

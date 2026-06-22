@@ -1,0 +1,90 @@
+<div class="_content_1hbmc_36">
+
+  <!-- Preview Area -->
+  <div class="_layout_1hbmc_48">
+
+    <!-- Character -->
+    <div class="_character_1hbmc_59">
+      <div
+        class="_container_1oxv8_1"
+        style="
+          width:480px;
+          height:864px;
+          max-width:none;
+          max-height:none;
+          overflow:visible;
+          flex:0 0 auto;
+          min-width:480px;
+          min-height:864px;
+          align-self:flex-start;
+        "
+      >
+        <canvas
+          width="480"
+          height="864"
+          style="
+            width:480px;
+            height:864px;
+            max-width:none;
+            max-height:none;
+            overflow:visible;
+          "
+        ></canvas>
+      </div>
+    </div>
+
+    <!-- Board -->
+    <div class="_board_1hbmc_72">
+
+      <div class="_contentBox_1hbmc_85">
+        <h1 class="_title_1hbmc_112">
+          Bagian Tubuh Manusia
+        </h1>
+
+        <p class="_subtitle_1hbmc_120">
+          Bab 1
+        </p>
+
+        <p class="_lead_1hbmc_130">
+          Mengenal bagian tubuh dan fungsinya
+        </p>
+      </div>
+
+      <div class="_infoBox_1hbmc_89">
+        <div class="_icon_1hbmc_99">📚</div>
+        <div class="_text_1hbmc_100">
+          Informasi materi
+        </div>
+      </div>
+
+      <button class="_boardButton_1hbmc_102">
+        Lanjut
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="_rightColumn_1hbmc_142">
+
+    <div class="_description_1hbmc_215">
+      <h2>Deskripsi</h2>
+
+      <p>
+        Mengenal bagian tubuh dan fungsinya
+      </p>
+
+      <div class="_meta_1hbmc_300">
+        <span class="_duration_1hbmc_308">
+          ⏱ 20 menit
+        </span>
+      </div>
+    </div>
+
+    <button class="_continueButton_1hbmc_316">
+      Lanjut ke Pilihan Konten
+    </button>
+
+  </div>
+
+</div>

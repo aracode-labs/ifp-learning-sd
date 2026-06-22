@@ -32,8 +32,10 @@ const TopicMenu: React.FC = () => {
           ← Kembali
         </button>
         <h1 className={styles.title}>Pilih Topik</h1>
-        <p className={styles.subtitle}>{subjectDetail?.subject} - Kelas {selectedGrade}</p>
       </div>
+
+      {/* Subject label moved into body (left top) */}
+      <div className={styles.subjectName}>{subjectDetail?.subject} - Kelas {selectedGrade}</div>
 
       <div className={styles.list}>
         {materials.map((material: any) => (

@@ -1,0 +1,9 @@
+.videoPlayerWrap{width:100%;display:flex;justify-content:center;margin-bottom:14px}
+.videoPlayer{width:100%;max-width:960px;height:auto;border-radius:10px;background:#000;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+
+@media(max-width:900px){
+  .videoPlayer{max-width:100%}
+}
+
+/* background for video pages */
+.videoRoot{background-image:url('/background/bg_video.png') !important;background-size:cover;background-position:center center;background-attachment:fixed}

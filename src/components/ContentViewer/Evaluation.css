@@ -1,0 +1,52 @@
+.evaluationRoot{display:flex;flex-direction:column;gap:14px}
+.evalQuestion{margin-bottom:12px}
+.evalPrompt{font-weight:700;color:#0b2545;margin-bottom:8px}
+.evalOptions{display:flex;flex-direction:column;gap:8px}
+.evalOption{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.03);cursor:pointer}
+.evalOption input{accent-color:#0b61ff}
+.evalOption.selected{outline:2px solid rgba(11,97,255,0.12);background:rgba(11,97,255,0.04)}
+.evalResult{text-align:center}
+
+/* landscape layout */
+.evaluationLandscape{display:flex;gap:18px;align-items:flex-start}
+.evalCharacter{width:220px;display:flex;align-items:flex-start;justify-content:center}
+.evalCharacter > *{width:100%}
+.evalSidebar{width:140px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;display:flex;flex-direction:column;align-items:center}
+.sidebarTitle{font-weight:800;color:#0b2545;margin-bottom:8px}
+.sidebarList{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.sidebarItem{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,0.03);cursor:pointer}
+.sidebarItem.answered{background:linear-gradient(90deg,#e6fff0,#dffbe8)}
+.sidebarItem.active{outline:2px solid rgba(11,97,255,0.12)}
+.sidebarFooter{margin-top:auto;font-size:13px;color:#234d77}
+
+.evalPanel{flex:1;display:flex;flex-direction:column;gap:12px}
+.evalPanel{flex:1;display:flex;flex-direction:column;gap:12px;justify-content:center;align-items:center;min-height:480px;padding:18px}
+.evalPromptLarge{font-size:22px;font-weight:800;color:#0b2545;text-align:center;margin-bottom:12px;max-width:760px}
+.evalOptionsLarge{display:flex;flex-direction:column;gap:14px;align-items:center;width:100%}
+.evalOptionLarge{padding:16px 20px;border-radius:12px;background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.02);cursor:pointer;text-align:left;max-width:820px;width:100%;font-size:16px;box-shadow:0 6px 18px rgba(8,24,48,0.06)}
+.evalOptionLarge.selected{border-color:#2ecc71;background:linear-gradient(90deg,#e6fff0,#dffbe8)}
+
+/* visual slide effect: center the question and slightly separate from sidebar */
+.evaluationLandscape{align-items:stretch}
+.evalSidebar{flex:0 0 120px}
+
+/* navigation buttons centered under options */
+.readingActions{justify-content:center}
+.readingActions .primary{min-width:140px}
+
+/* widen the reading card for evaluation pages so questions appear more spacious */
+.evaluationRoot .readingCard{max-width:1100px;padding:28px}
+
+/* evalLayout: mirror TopicIntro two-column proportions */
+.evalLayout{display:flex;gap:24px;width:100%;max-width:1100px;align-items:stretch;justify-content:flex-start;height:min(62vh,760px);margin:0 auto}
+.evalBoard{flex:1 1 auto;display:flex;flex-direction:column;gap:16px;background:transparent;border-radius:12px;padding:20px;box-shadow:none}
+.evalLayout .evalCharacter{flex:0 0 420px;max-width:420px}
+
+@media(max-width:900px){
+	.evalLayout{flex-direction:column;height:auto}
+	.evalLayout .evalCharacter{max-width:100%;display:flex;justify-content:center}
+	.evalBoard{width:100%}
+}
+
+/* evaluation page background */
+.evaluationRoot{background-image:url('/background/bg_evaluasi.png') !important;background-size:cover;background-position:center center;background-attachment:fixed}

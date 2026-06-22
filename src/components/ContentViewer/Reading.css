@@ -1,0 +1,23 @@
+.readingRoot{min-height:100vh;height:100vh;padding:28px 24px;background-image:url('/background/bg-reading.png');background-size:cover;background-position:center center;background-repeat:no-repeat;background-attachment:fixed;display:flex;flex-direction:column;align-items:stretch;font-family:Peralta, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+.readingInner{width:100%;max-width:1200px;margin:0 auto;display:flex;gap:28px;flex:1}
+.readingRight{flex:1 1 100%;display:flex;flex-direction:column;gap:18px;height:100%}
+.readingHeader{margin:0}
+.readingTitle{font-size:30px;margin:0;color:#0b2545}
+.readingMeta{color:#234d77;margin:6px 0 0}
+.readingCard{max-width:1000px;margin:0 auto;padding:18px 20px;border-radius:12px;background:rgba(255,255,255,0.06);backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(8,24,48,0.12);display:block;height:80vh;overflow:auto;border:3px solid #FF8C42}
+.readingCard h2{margin-top:0;color:#0b2545}
+.readingCard p{line-height:1.6;color:#10233b}
+.readingActions{display:flex;gap:12px;margin-top:18px}
+.primary{background:#0b61ff;color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+.primary:hover{opacity:0.95}
+
+/* back button */
+.readingBack{position:fixed;left:20px;top:20px;background:rgba(255,255,255,0.14);border:2px solid rgba(255,255,255,0.2);color:#fff;padding:8px 12px;border-radius:18px;z-index:220;cursor:pointer;font-weight:700}
+.readingBack:hover{background:rgba(255,255,255,0.22)}
+
+/* reserve bottom spacing so card sits 10% above viewport bottom */
+.readingInner{padding-bottom:10vh}
+
+@media(max-width:900px){
+	.readingInner{flex-direction:column}
+}

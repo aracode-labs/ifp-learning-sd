@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppContext } from '@/context/AppContext';
 import { useSubjectContent } from '@/hooks/useData';
 import styles from './TopicIntro.module.css';
+import CharacterAnimator from '@/components/CharacterAnimator/CharacterAnimator';
+import useKarakterFrames from '@/hooks/useKarakterFrames';
 
 const TopicIntro: React.FC = () => {
   const navigate = useNavigate();
@@ -31,10 +33,7 @@ const TopicIntro: React.FC = () => {
     return <div className={styles.container}>Loading...</div>;
   }
 
-  // Extract topic number from topicId (e.g., '1' from 'matematika-1')
-  const topicNum = topicId?.split('-').pop() || '1';
-  const subjectName = selectedSubject?.split('-').shift() || 'topik';
-  const videoPath = `/content/kelas${selectedGrade}-semester${selectedSemester}/${subjectName}/topik-${topicNum}/intro/intro-topik.mp4`;
+  // (topicNum/subjectName removed — not used here)
 
   return (
     <div className={styles.container}>
@@ -45,36 +44,57 @@ const TopicIntro: React.FC = () => {
       </div>
 
       <div className={styles.content}>
-        <h1 className={styles.title}>{topicData.title}</h1>
-        <p className={styles.subtitle}>Bab {topicData.chapter}</p>
+        <div className={styles.twoCol}>
+          <div className={styles.left}>
+            {(() => {
+              const karakterFrames = useKarakterFrames(topicData?.characterFolder || undefined);
+              return (
+                <div className={styles.character}>
+                  <CharacterAnimator
+                    frames={karakterFrames}
+                    fps={12}
+                    autoplay={true}
+                    autoSize={true}
+                    scale={'80%'}
+                    align="left"
+                    alignOffset={8}
+                  />
+                </div>
+              );
+            })()}
+          </div>
 
-        <div className={styles.videoContainer}>
-          <div className={styles.videoPlaceholder}>
-            <div className={styles.playButton}>▶</div>
-            <p className={styles.placeholderText}>Video Intro Topik</p>
-            <video
-              className={styles.video}
-              controls
-              controlsList="nodownload"
-              poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'%3E%3Crect fill='%23f0f0f0'/%3E%3C/svg%3E"
-            >
-              <source src={videoPath} type="video/mp4" />
-              Browser Anda tidak mendukung video.
-            </video>
+          <div className={styles.right}>
+            <div className={styles.board}>
+              <div className={styles.contentBox}>
+                <h1 className={styles.title}>{topicData.title}</h1>
+                <p className={styles.subtitle}>Bab {topicData.chapter}</p>
+                <p className={styles.lead}>{topicData.description}</p>
+              </div>
+
+              <div className={styles.infoBox}>
+                <div className={styles.icon}>📚</div>
+                <div className={styles.text}>Informasi materi</div>
+              </div>
+
+              <div className={styles.boardButton} onClick={handleContinue} role="button">
+                Lanjut
+              </div>
+            </div>
+
+            <div className={styles.description}>
+              <h2>Deskripsi</h2>
+              <p>{topicData.description}</p>
+              <div className={styles.meta}>
+                <span className={styles.duration}>⏱ {topicData.duration_minutes} menit</span>
+              </div>
+            </div>
+
+            <button className={styles.continueButton} onClick={handleContinue}>
+              Lanjut ke Pilihan Konten
+            </button>
           </div>
         </div>
-
-        <div className={styles.description}>
-          <h2>Deskripsi</h2>
-          <p>{topicData.description}</p>
-          <div className={styles.meta}>
-            <span className={styles.duration}>⏱ {topicData.duration_minutes} menit</span>
-          </div>
-        </div>
-
-        <button className={styles.continueButton} onClick={handleContinue}>
-          Lanjut ke Pilihan Konten
-        </button>
       </div>
     </div>
   );

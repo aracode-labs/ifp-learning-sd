@@ -1,0 +1,9 @@
+.threeWrap{display:flex;justify-content:center}
+.threeMount{width:100%;max-width:980px;height:520px;border-radius:10px;overflow:hidden}
+
+@media(max-width:900px){
+  .threeMount{height:340px}
+}
+
+/* 3D page background */
+.threeRoot{background-image:url('/background/bg_3d.png') !important;background-size:cover;background-position:center center;background-attachment:fixed}
