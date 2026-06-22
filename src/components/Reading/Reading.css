@@ -45,7 +45,9 @@
   padding: 20px;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 10px;
-  min-height: 240px;
+  /* set text display height to 80vh as requested */
+  height: 80vh;
+  overflow: auto;
   margin-bottom: 16px;
 }
 
@@ -56,17 +58,16 @@
 }
 
 .textLine {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 1.7;
   color: #10233b;
-  margin: 0;
-  transition: all 0.3s ease;
+  margin: 0 0 8px 0;
+  transition: all 0.18s ease;
 }
 
 .textLine.prompt {
   color: #666;
   font-style: italic;
-  opacity: 0.7;
 }
 
 .textLine.past {
@@ -74,11 +75,12 @@
 }
 
 .textLine.current {
-  background: linear-gradient(90deg, #e6f3ff, #dde9ff);
-  padding: 8px 12px;
-  border-radius: 6px;
-  border-left: 4px solid #0b61ff;
-  font-weight: 500;
+  /* remove blue gradient background per design request */
+  background: transparent;
+  padding: 4px 0;
+  border-radius: 0;
+  border-left: 4px solid rgba(11,97,255,0.12);
+  font-weight: 600;
   opacity: 1;
 }
 
@@ -88,11 +90,19 @@
   cursor: pointer;
 }
 
+.word {
+  transition: transform 180ms ease, background-color 180ms ease, font-size 180ms ease;
+}
+
 .currentWord {
   background: #ffeaa7;
-  border-radius: 3px;
-  padding-left: 2px;
-  padding-right: 2px;
+  color: #2b2b00;
+  border-radius: 6px;
+  padding: 4px 8px;
+  transform-origin: center;
+  transform: scale(1.14);
+  font-weight: 800;
+  font-size: 1.12em;
 }
 
 .infoBox {
@@ -107,4 +117,39 @@
   margin: 0;
   font-size: 14px;
   color: #0b2545;
+}
+
+.readingControls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  /* positioned below the scrollable text area; make sticky so it's always visible */
+  padding: 8px 12px;
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.00), rgba(255,255,255,0.02));
+  z-index: 40;
+}
+
+/* make the card layout push controls to bottom while text scrolls */
+.readingRight {
+  position: relative; /* container for absolute character placed outside the article */
+}
+
+/* absolute character container positioned to the left OUTSIDE the reading card */
+.readingCharacter {
+  position: absolute;
+  left: -260px; /* sit outside the card */
+  top: 36px;
+  width: 220px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.readingCard {
+  display: flex;
+  flex-direction: column;
+  padding-left: 24px;
 }

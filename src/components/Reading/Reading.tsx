@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CharacterAnimator from '@/components/CharacterAnimator/CharacterAnimator';
+import useKarakterFrames from '@/hooks/useKarakterFrames';
 import './Reading.css';
 
 type TextLine = {
@@ -11,7 +13,9 @@ type TextLine = {
 // We'll load the source text from public/audio/bacaan/ipa_dummy.txt
 // and split into sentences/lines, then compute startTime after audio metadata loads
 
-const Reading: React.FC = () => {
+type ReadingProps = { topicId?: string };
+
+const Reading: React.FC<ReadingProps> = ({ topicId }) => {
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -20,6 +24,12 @@ const Reading: React.FC = () => {
   const [lines, setLines] = useState<TextLine[]>([]);
   // loadingText removed — we don't need an explicit loading flag
   const [durationMs, setDurationMs] = useState<number>(0);
+  const [audioSrc, setAudioSrc] = useState<string>('/audio/bacaan/ipa_dummy.MP3');
+  const [txtPath, setTxtPath] = useState<string>('/audio/bacaan/ipa_dummy.txt');
+  const [srtPath, setSrtPath] = useState<string>('/audio/bacaan/ipa_dummy.srt');
+  const [title, setTitle] = useState<string>('Modul Bacaan');
+
+  const karakterFrames = useKarakterFrames();
 
   // Determine which line(s) should be displayed based on current audio time
   useEffect(() => {
@@ -54,49 +64,106 @@ const Reading: React.FC = () => {
   useEffect(() => {
     let mounted = true;
 
-    // Try to load .srt first (same base name as audio/text)
-    const tryLoadSrt = async () => {
+    // Attempt to load content config for this topicId.
+    // Prefer a config placed alongside topic content under class folders (e.g. /content/kelas1-semester1/<subject>/<topicId>.json)
+    // before falling back to the top-level /content/reading shims.
+    const tryLoadContentConfig = async () => {
+      if (!topicId) return false;
+      const tried: string[] = [];
+      const candidates: string[] = [];
+
+      // If topicId like 'ipa-3', extract subject
+      const m = topicId.match(/^([a-zA-Z0-9_\s]+)-/);
+      const subject = m ? m[1] : null;
+
+      // Known class folders in public/content — try them first (prefer in-folder JSONs)
+      const classDirs = [
+        'kelas1-semester1','kelas1-semester2',
+        'kelas2-semester1','kelas2-semester2',
+        'kelas3-semester1','kelas3-semester2',
+        'kelas4-semester1','kelas4-semester2',
+        'kelas5-semester1','kelas5-semester2',
+        'kelas6-semester1','kelas6-semester2'
+      ];
+
+      if (subject) {
+        for (const cd of classDirs) {
+          candidates.push(`/content/${cd}/${subject}/${topicId}.json`);
+          candidates.push(`/content/${cd}/${subject}/${subject}-${topicId.replace(/^.*?-/, '')}.json`);
+        }
+      }
+
+      // Also try subject-level config inside class folders (e.g. /content/kelas1-semester1/ipa.json)
+      if (subject) {
+        for (const cd of classDirs) {
+          candidates.push(`/content/${cd}/${subject}.json`);
+        }
+      }
+
+      // Finally fall back to the reading shims we generated
+      candidates.push(`/content/reading/${topicId}.json`);
+      if (subject) {
+        candidates.push(`/content/reading/${subject}/${topicId}.json`);
+        candidates.push(`/content/reading/${subject}.json`);
+      }
+
+      for (const p of candidates) {
+        tried.push(p);
+        try {
+          const cfgResp = await fetch(p);
+          if (!cfgResp.ok) continue;
+          const cfg = await cfgResp.json();
+          if (!mounted) return true;
+          if (cfg.title) setTitle(cfg.title);
+          else setTitle(`Bacaan: ${topicId}`);
+          if (cfg.audio) setAudioSrc(cfg.audio);
+          if (cfg.txt) setTxtPath(cfg.txt);
+          if (cfg.srt) setSrtPath(cfg.srt);
+          return true;
+        } catch (e) {
+          continue;
+        }
+      }
+      return false;
+    };
+
+    // Try to load .srt (from srtPath) then fall back to txtPath
+    const tryLoadSrtOrTxt = async () => {
       try {
-        const srtResp = await fetch('/audio/bacaan/ipa_dummy.srt');
+        const srtResp = await fetch(srtPath);
         if (srtResp.ok) {
           const srtText = await srtResp.text();
           if (!mounted) return;
           const parsed = parseSrt(srtText);
           setLines(parsed);
-          return true;
+          return;
         }
       } catch (e) {
-        // ignore and fallback
+        // ignore
       }
-      return false;
-    };
 
-    const loadTxtFallback = async () => {
+      // fallback to txtPath
       try {
-        const res = await fetch('/audio/bacaan/ipa_dummy.txt');
+        const res = await fetch(txtPath);
         const txt = await res.text();
         if (!mounted) return;
         const cleaned = txt.replace(/\s+/g, ' ').trim();
-        // split into sentences using punctuation (., ?, ?) followed by space
-        const parts = cleaned.split(/(?<=[\.\?\!])\s+/).map(s => s.trim()).filter(Boolean);
-        // initialize with placeholder startTime=0; actual startTime assigned on metadata
+        const parts = cleaned.split(/(?<=[\.!?])\s+/).map(s => s.trim()).filter(Boolean);
         const initial: TextLine[] = parts.map((p) => ({ text: p, startTime: 0 }));
         setLines(initial);
       } catch (e) {
         if (!mounted) return;
         setLines([]);
-      } finally {
-        // noop
       }
     };
 
     (async () => {
-      const srtLoaded = await tryLoadSrt();
-      if (!srtLoaded) await loadTxtFallback();
+      await tryLoadContentConfig();
+      await tryLoadSrtOrTxt();
     })();
 
     return () => { mounted = false; };
-  }, []);
+  }, [topicId]);
 
 
   // parse a simple SRT file and return TextLine[] using the start time of each cue
@@ -181,34 +248,32 @@ const Reading: React.FC = () => {
       <div className="readingInner">
         <div className="readingRight fullWidth">
           <div className="readingHeader">
-            <h1 className="readingTitle">Modul Bacaan</h1>
+            <h1 className="readingTitle">{title}</h1>
             <p className="readingMeta">Baca dengan panduan audio</p>
           </div>
 
+          {/* absolute-positioned character sits outside the reading card */}
+          <div className="readingCharacter">
+            <CharacterAnimator
+              frames={karakterFrames}
+              fps={12}
+              autoplay={true}
+              autoSize={true}
+              scale={'90%'}
+            />
+          </div>
           <article className="readingCard">
             {/* Audio player */}
             <div className="audioPlayerWrap">
               <audio
                 ref={audioRef}
-                src="/audio/bacaan/ipa_dummy.MP3"
+                src={audioSrc}
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={handleEnded}
                 onLoadedMetadata={handleLoadedMetadata}
               />
-              <div className="audioControls">
-                <button className="playButton" onClick={handlePlayPause}>
-                  {isPlaying ? '⏸ Jeda' : '▶ Putar'}
-                </button>
-                <button className="resetButton" onClick={handleReset}>
-                  🔄 Reset
-                </button>
-              </div>
-              <div className="audioTime">
-                {Math.floor(currentTime / 1000)}s
-              </div>
-            
 
-            {/* progress bar */}
+              {/* progress bar */}
             <div className="audioProgress" onClick={(e) => {
               const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
               const x = (e as React.MouseEvent).clientX - rect.left;
@@ -305,13 +370,17 @@ const Reading: React.FC = () => {
               </div>
             </div>
 
-            {/* Info box */}
-            <div className="infoBox">
-              <p><strong>Baris saat ini:</strong> {Math.min(lines.length, currentLineIndex + 1)} dari {lines.length}</p>
-            </div>
-
-            <div className="readingActions">
-              <button className="primary" onClick={() => navigate(-1)}>Kembali</button>
+            {/* Play controls moved below text */}
+            <div className="readingControls">
+              <button className="playButton" onClick={handlePlayPause}>
+                {isPlaying ? '⏸ Jeda' : '▶ Putar'}
+              </button>
+              <button className="resetButton" onClick={handleReset}>
+                🔄 Reset
+              </button>
+              <div className="audioTime">
+                {Math.floor(currentTime / 1000)}s
+              </div>
             </div>
           </article>
         </div>
