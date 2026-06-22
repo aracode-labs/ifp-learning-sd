@@ -8,6 +8,7 @@ import ContentSelector from '@/components/ContentSelector';
 import ContentViewer from '@/components/ContentViewer/ContentViewer';
 import CharacterAnimator from '@/components/CharacterAnimator/CharacterAnimator';
 import useKarakterFrames from '@/hooks/useKarakterFrames';
+import ReadingModule from '@/components/Reading/Reading';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/topic-intro/:topicId" element={<TopicIntro />} />
           <Route path="/content-selector/:topicId" element={<ContentSelector />} />
           <Route path="/content/:contentId/:topicId" element={<ContentViewer />} />
+          <Route path="/bacaan" element={<ReadingModule />} />
           <Route
             path="/anim"
             element={
