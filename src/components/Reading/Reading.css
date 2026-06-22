@@ -82,6 +82,19 @@
   opacity: 1;
 }
 
+.word {
+  display: inline-block;
+  padding-right: 4px;
+  cursor: pointer;
+}
+
+.currentWord {
+  background: #ffeaa7;
+  border-radius: 3px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
 .infoBox {
   padding: 12px;
   background: rgba(11, 97, 255, 0.08);

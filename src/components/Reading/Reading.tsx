@@ -5,6 +5,7 @@ import './Reading.css';
 type TextLine = {
   text: string;
   startTime: number; // in milliseconds
+  endTime?: number; // optional end time in ms
 };
 
 // We'll load the source text from public/audio/bacaan/ipa_dummy.txt
@@ -17,7 +18,7 @@ const Reading: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [lines, setLines] = useState<TextLine[]>([]);
-  const [loadingText, setLoadingText] = useState(true);
+  // loadingText removed — we don't need an explicit loading flag
   const [durationMs, setDurationMs] = useState<number>(0);
 
   // Determine which line(s) should be displayed based on current audio time
@@ -62,7 +63,6 @@ const Reading: React.FC = () => {
           if (!mounted) return;
           const parsed = parseSrt(srtText);
           setLines(parsed);
-          setLoadingText(false);
           return true;
         }
       } catch (e) {
@@ -86,7 +86,7 @@ const Reading: React.FC = () => {
         if (!mounted) return;
         setLines([]);
       } finally {
-        if (mounted) setLoadingText(false);
+        // noop
       }
     };
 
@@ -114,8 +114,9 @@ const Reading: React.FC = () => {
       const match = timingLine.match(/(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})/);
       if (!match) continue;
       const start = srtTimeToMs(match[1]);
+      const end = srtTimeToMs(match[2]);
       const text = lines.slice(lines.indexOf(timingLine) + 1).join(' ');
-      out.push({ text, startTime: start });
+      out.push({ text, startTime: start, endTime: end });
     }
     return out;
   }
@@ -139,10 +140,21 @@ const Reading: React.FC = () => {
     setDurationMs(durMs);
     if (!lines.length || durMs <= 0) return;
     // If lines already have timing (from .srt), don't overwrite them.
-    const hasTiming = lines.some(ln => ln.startTime && ln.startTime > 0);
-    if (hasTiming) return;
+    const hasTiming = lines.some(ln => ln.endTime && ln.endTime > 0);
+    if (hasTiming) {
+      // ensure any missing endTime values are set (use next start or duration)
+      const filled = lines.map((ln, i) => {
+        if (ln.endTime && ln.endTime > 0) return ln;
+        const next = lines[i+1];
+        const end = next ? next.startTime : durMs;
+        return { ...ln, endTime: end };
+      });
+      setLines(filled);
+      return;
+    }
+
     const segment = Math.max(200, Math.floor(durMs / lines.length));
-    const mapped = lines.map((ln, i) => ({ ...ln, startTime: i * segment }));
+    const mapped = lines.map((ln, i) => ({ ...ln, startTime: i * segment, endTime: i === lines.length - 1 ? durMs : (i+1)*segment }));
     setLines(mapped);
   };
 
@@ -216,25 +228,73 @@ const Reading: React.FC = () => {
               <div className="textContainer">
                 {/* Display all lines up to current index */}
                 {lines.length ? (
-                  lines.slice(0, currentLineIndex + 1).map((line, idx) => (
-                    <p
-                      key={idx}
-                      className={`textLine ${idx === currentLineIndex ? 'current' : 'past'}`}
-                      onClick={() => {
-                        const audio = audioRef.current;
-                        if (audio) {
-                          audio.currentTime = line.startTime / 1000;
-                          setCurrentTime(audio.currentTime * 1000);
-                          if (!isPlaying) {
-                            audio.play();
-                            setIsPlaying(true);
-                          }
-                        }
-                      }}
-                    >
-                      {line.text}
-                    </p>
-                  ))
+                  lines.slice(0, currentLineIndex + 1).map((line, idx) => {
+                    const isCurrent = idx === currentLineIndex;
+                    if (!isCurrent) {
+                      return (
+                        <p
+                          key={idx}
+                          className={`textLine past`}
+                          onClick={() => {
+                            const audio = audioRef.current;
+                            if (audio) {
+                              audio.currentTime = line.startTime / 1000;
+                              setCurrentTime(audio.currentTime * 1000);
+                              if (!isPlaying) {
+                                audio.play();
+                                setIsPlaying(true);
+                              }
+                            }
+                          }}
+                        >
+                          {line.text}
+                        </p>
+                      );
+                    }
+
+                    // current line — render words with per-word timing
+                    const start = line.startTime || 0;
+                    const end = line.endTime || (durationMs || start + 1000);
+                    const words = line.text.split(/(\s+)/).filter(Boolean); // keep spaces so we can render them
+                    // compute elapsed within this cue
+                    const elapsed = Math.max(0, Math.min(end - start, currentTime - start));
+                    const cueDur = Math.max(1, end - start);
+                    // determine which non-space token index is current
+                    const tokenIndices = words.map((w, i) => ({ w, i, isSpace: /^\s+$/.test(w) }));
+                    const nonSpaceCount = tokenIndices.filter(t => !t.isSpace).length || 1;
+                    const wordIdx = Math.floor((elapsed / cueDur) * nonSpaceCount);
+                    let seen = -1;
+
+                    return (
+                      <p key={idx} className={`textLine current`}>
+                        {tokenIndices.map((tok) => {
+                          if (tok.isSpace) return <span key={tok.i}>{tok.w}</span>;
+                          seen++;
+                          const isWordCurrent = seen === wordIdx;
+                          const wordStart = start + (seen * cueDur) / nonSpaceCount;
+                          return (
+                            <span
+                              key={tok.i}
+                              className={`word ${isWordCurrent ? 'currentWord' : ''}`}
+                              onClick={() => {
+                                const audio = audioRef.current;
+                                if (audio) {
+                                  audio.currentTime = wordStart / 1000;
+                                  setCurrentTime(audio.currentTime * 1000);
+                                  if (!isPlaying) {
+                                    audio.play();
+                                    setIsPlaying(true);
+                                  }
+                                }
+                              }}
+                            >
+                              {tok.w}
+                            </span>
+                          );
+                        })}
+                      </p>
+                    );
+                  })
                 ) : (
                   <p className="textLine prompt">Memuat teks...</p>
                 )}
