@@ -1,6 +1,7 @@
 {
   "title": "AGAMA - Topik 3",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas4-semester2/agama/agama-3/agama-3.mp3",
+  "txt": "/bacaan/kelas4-semester2/agama/agama-3/agama-3.txt",
+  "srt": "/bacaan/kelas4-semester2/agama/agama-3/agama-3.srt",
+  "slides": "/bacaan/kelas4-semester2/agama/agama-3/slides"
 }

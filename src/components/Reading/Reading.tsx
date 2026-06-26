@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CharacterAnimator from '@/components/CharacterAnimator/CharacterAnimator';
-import useKarakterFrames from '@/hooks/useKarakterFrames';
+import SlideShow from '@/components/SlideShow/SlideShow';
+import { FrameSource } from '@/utils/frameLoader';
 import './Reading.css';
 
 type TextLine = {
@@ -22,14 +23,42 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [lines, setLines] = useState<TextLine[]>([]);
+  const [showFullRead, setShowFullRead] = useState(false);
   // loadingText removed — we don't need an explicit loading flag
   const [durationMs, setDurationMs] = useState<number>(0);
-  const [audioSrc, setAudioSrc] = useState<string>('/audio/bacaan/ipa_dummy.MP3');
-  const [txtPath, setTxtPath] = useState<string>('/audio/bacaan/ipa_dummy.txt');
-  const [srtPath, setSrtPath] = useState<string>('/audio/bacaan/ipa_dummy.srt');
+  const defaultResourcePath = '/bacaan/default';
+  const defaultSlidePath = `${defaultResourcePath}/slides`;
+  const [audioSrc, setAudioSrc] = useState<string>(`${defaultResourcePath}/ipa_dummy.MP3`);
+  const [txtPath, setTxtPath] = useState<string>(`${defaultResourcePath}/ipa_dummy.txt`);
+  const [srtPath, setSrtPath] = useState<string>(`${defaultResourcePath}/ipa_dummy.srt`);
+  const [slideBasePath, setSlideBasePath] = useState<string>(defaultSlidePath);
   const [title, setTitle] = useState<string>('Modul Bacaan');
+  const [characterAnimation, setCharacterAnimation] = useState<'karakter_idle' | 'karakter_menjelaskan'>('karakter_idle');
 
-  const karakterFrames = useKarakterFrames();
+  const normalizeDefaultAssetPath = (value?: string): string | undefined => {
+    if (!value) return undefined;
+    if (value.startsWith('/audio/bacaan/')) {
+      return value.replace('/audio/bacaan', defaultResourcePath);
+    }
+    if (value.startsWith('audio/bacaan/')) {
+      return value.replace('audio/bacaan', defaultResourcePath);
+    }
+    return value;
+  };
+
+  const slideSource = useMemo<FrameSource>(() => ({
+    basePath: slideBasePath,
+    pattern: 'image{i}.png',
+    start: 1,
+    end: 3,
+    zeroPad: 3,
+  }), [slideBasePath]);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      setCharacterAnimation('karakter_idle');
+    }
+  }, [isPlaying]);
 
   // Determine which line(s) should be displayed based on current audio time
   useEffect(() => {
@@ -48,10 +77,13 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
     if (!audio) return;
     if (isPlaying) {
       audio.pause();
+      setIsPlaying(false);
+      setCharacterAnimation('karakter_idle');
     } else {
       audio.play();
+      setIsPlaying(true);
+      setCharacterAnimation('karakter_menjelaskan');
     }
-    setIsPlaying(!isPlaying);
   };
 
   const handleTimeUpdate = () => {
@@ -69,10 +101,7 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
     // before falling back to the top-level /content/reading shims.
     const tryLoadContentConfig = async () => {
       if (!topicId) return false;
-      const tried: string[] = [];
       const candidates: string[] = [];
-
-      // If topicId like 'ipa-3', extract subject
       const m = topicId.match(/^([a-zA-Z0-9_\s]+)-/);
       const subject = m ? m[1] : null;
 
@@ -108,7 +137,6 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
       }
 
       for (const p of candidates) {
-        tried.push(p);
         try {
           const cfgResp = await fetch(p);
           if (!cfgResp.ok) continue;
@@ -116,9 +144,10 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
           if (!mounted) return true;
           if (cfg.title) setTitle(cfg.title);
           else setTitle(`Bacaan: ${topicId}`);
-          if (cfg.audio) setAudioSrc(cfg.audio);
-          if (cfg.txt) setTxtPath(cfg.txt);
-          if (cfg.srt) setSrtPath(cfg.srt);
+          if (cfg.audio) setAudioSrc(normalizeDefaultAssetPath(cfg.audio) ?? cfg.audio);
+          if (cfg.txt) setTxtPath(normalizeDefaultAssetPath(cfg.txt) ?? cfg.txt);
+          if (cfg.srt) setSrtPath(normalizeDefaultAssetPath(cfg.srt) ?? cfg.srt);
+          if (cfg.slides) setSlideBasePath(normalizeDefaultAssetPath(cfg.slides) ?? cfg.slides);
           return true;
         } catch (e) {
           continue;
@@ -227,15 +256,18 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
 
   const handleEnded = () => {
     setIsPlaying(false);
+    setCharacterAnimation('karakter_idle');
   };
 
   const handleReset = () => {
     const audio = audioRef.current;
     if (audio) {
+      audio.pause();
       audio.currentTime = 0;
       setCurrentTime(0);
       setCurrentLineIndex(0);
       setIsPlaying(false);
+      setCharacterAnimation('karakter_idle');
     }
   };
 
@@ -248,32 +280,118 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
       <div className="readingInner">
         <div className="readingRight fullWidth">
           <div className="readingHeader">
-            <h1 className="readingTitle">{title}</h1>
-            <p className="readingMeta">Baca dengan panduan audio</p>
+            <div>
+              <h1 className="readingTitle">{title}</h1>
+              <p className="readingMeta">Baca dengan panduan audio</p>
+            </div>
+            <button className="fullReadButton" onClick={() => setShowFullRead(true)}>
+              📖 Bacaan Lengkap
+            </button>
           </div>
 
-          {/* absolute-positioned character sits outside the reading card */}
           <div className="readingCharacter">
             <CharacterAnimator
-              frames={karakterFrames}
+              key={characterAnimation}
+              animation={characterAnimation}
               fps={12}
               autoplay={true}
               autoSize={true}
               scale={'90%'}
             />
           </div>
-          <article className="readingCard">
-            {/* Audio player */}
-            <div className="audioPlayerWrap">
-              <audio
-                ref={audioRef}
-                src={audioSrc}
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={handleEnded}
-                onLoadedMetadata={handleLoadedMetadata}
-              />
 
-              {/* progress bar */}
+          <div className="readingMedia">
+            <div className="readingSlideshow">
+              <SlideShow slides={slideSource} currentCueIndex={currentLineIndex} />
+            </div>
+          </div>
+
+          <article className="readingCard">
+            <div className="textDisplay">
+              <div className="textContainer">
+                {lines.length ? (() => {
+                  const line = lines[currentLineIndex] ?? lines[0];
+                  const start = line.startTime ?? 0;
+                  const end = line.endTime ?? durationMs ?? (start + 1000);
+                  const isCurrent = currentTime >= start && currentTime < end;
+                  const words = line.text.split(/(\s+)/).filter(Boolean);
+                  const elapsed = Math.max(0, Math.min(end - start, currentTime - start));
+                  const cueDur = Math.max(1, end - start);
+                  const tokenIndices = words.map((w, i) => ({ w, i, isSpace: /^\s+$/.test(w) }));
+                  const nonSpaceCount = tokenIndices.filter(t => !t.isSpace).length || 1;
+                  const wordIdx = Math.floor((elapsed / cueDur) * nonSpaceCount);
+                  let seen = -1;
+
+                  return (
+                    <p className={`textLine ${isCurrent ? 'current' : 'past'}`} onClick={() => {
+                      const audio = audioRef.current;
+                      if (audio) {
+                        audio.currentTime = start / 1000;
+                        setCurrentTime(audio.currentTime * 1000);
+                        if (!isPlaying) {
+                          audio.play();
+                          setIsPlaying(true);
+                          setCharacterAnimation('karakter_menjelaskan');
+                        }
+                      }
+                    }}>
+                      {tokenIndices.map((tok) => {
+                        if (tok.isSpace) return <span key={tok.i}>{tok.w}</span>;
+                        seen++;
+                        const isWordCurrent = seen === wordIdx;
+                        const wordStart = start + (seen * cueDur) / nonSpaceCount;
+                        return (
+                          <span
+                            key={tok.i}
+                            className={`word ${isWordCurrent ? 'currentWord' : ''}`}
+                            onClick={() => {
+                              const audio = audioRef.current;
+                              if (audio) {
+                                audio.currentTime = wordStart / 1000;
+                                setCurrentTime(audio.currentTime * 1000);
+                                if (!isPlaying) {
+                                  audio.play();
+                                  setIsPlaying(true);
+                                }
+                              }
+                            }}
+                          >
+                            {tok.w}
+                          </span>
+                        );
+                      })}
+                    </p>
+                  );
+                })() : (
+                  <p className="textLine prompt">Memuat teks...</p>
+                )}
+                {currentLineIndex === 0 && currentTime === 0 && (
+                  <p className="textLine prompt">Tekan tombol Putar untuk memulai...</p>
+                )}
+              </div>
+            </div>
+
+            
+          </article>
+
+          {/* audio controls placed below the reading card */}
+          <div className="audioPlayerWrap centeredAudio">
+            <audio
+              ref={audioRef}
+              src={audioSrc}
+              onTimeUpdate={handleTimeUpdate}
+              onEnded={handleEnded}
+              onLoadedMetadata={handleLoadedMetadata}
+              onPlay={() => {
+                setIsPlaying(true);
+                setCharacterAnimation('karakter_menjelaskan');
+              }}
+              onPause={() => {
+                setIsPlaying(false);
+                setCharacterAnimation('karakter_idle');
+              }}
+            />
+
             <div className="audioProgress" onClick={(e) => {
               const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
               const x = (e as React.MouseEvent).clientX - rect.left;
@@ -286,91 +404,8 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
             }}>
               <div className="audioProgressBar" style={{ width: durationMs > 0 ? `${Math.min(100, (currentTime / durationMs) * 100)}%` : '0%' }} />
             </div>
-            </div>
-
-            {/* Text display area */}
-            <div className="textDisplay">
-              <div className="textContainer">
-                {/* Display all lines up to current index */}
-                {lines.length ? (
-                  lines.map((line, idx) => {
-                    const start = line.startTime ?? 0;
-                    const end = line.endTime ?? durationMs ?? (start + 1000);
-                    const isPast = currentTime >= end;
-                    const isCurrent = currentTime >= start && currentTime < end;
-
-                    if (!isCurrent) {
-                      return (
-                        <p
-                          key={idx}
-                          className={`textLine ${isPast ? 'past' : ''}`}
-                          onClick={() => {
-                            const audio = audioRef.current;
-                            if (audio) {
-                              audio.currentTime = start / 1000;
-                              setCurrentTime(audio.currentTime * 1000);
-                              if (!isPlaying) {
-                                audio.play();
-                                setIsPlaying(true);
-                              }
-                            }
-                          }}
-                        >
-                          {line.text}
-                        </p>
-                      );
-                    }
-
-                    // current line — render words with per-word timing
-                    const words = line.text.split(/(\s+)/).filter(Boolean);
-                    const elapsed = Math.max(0, Math.min(end - start, currentTime - start));
-                    const cueDur = Math.max(1, end - start);
-                    const tokenIndices = words.map((w, i) => ({ w, i, isSpace: /^\s+$/.test(w) }));
-                    const nonSpaceCount = tokenIndices.filter(t => !t.isSpace).length || 1;
-                    const wordIdx = Math.floor((elapsed / cueDur) * nonSpaceCount);
-                    let seen = -1;
-
-                    return (
-                      <p key={idx} className={`textLine current`}>
-                        {tokenIndices.map((tok) => {
-                          if (tok.isSpace) return <span key={tok.i}>{tok.w}</span>;
-                          seen++;
-                          const isWordCurrent = seen === wordIdx;
-                          const wordStart = start + (seen * cueDur) / nonSpaceCount;
-                          return (
-                            <span
-                              key={tok.i}
-                              className={`word ${isWordCurrent ? 'currentWord' : ''}`}
-                              onClick={() => {
-                                const audio = audioRef.current;
-                                if (audio) {
-                                  audio.currentTime = wordStart / 1000;
-                                  setCurrentTime(audio.currentTime * 1000);
-                                  if (!isPlaying) {
-                                    audio.play();
-                                    setIsPlaying(true);
-                                  }
-                                }
-                              }}
-                            >
-                              {tok.w}
-                            </span>
-                          );
-                        })}
-                      </p>
-                    );
-                  })
-                 ) : (
-                  <p className="textLine prompt">Memuat teks...</p>
-                )}
-                {/* If no lines yet, show prompt */}
-                {currentLineIndex === 0 && currentTime === 0 && (
-                  <p className="textLine prompt">Tekan tombol Putar untuk memulai...</p>
-                )}
-              </div>
-            </div>
-
-            {/* Play controls moved below text */}
+          </div>
+          <div className="centeredAudioControls">
             <div className="readingControls">
               <button className="playButton" onClick={handlePlayPause}>
                 {isPlaying ? '⏸ Jeda' : '▶ Putar'}
@@ -382,11 +417,28 @@ const Reading: React.FC<ReadingProps> = ({ topicId }) => {
                 {Math.floor(currentTime / 1000)}s
               </div>
             </div>
-          </article>
+          </div>
+
+          {showFullRead && (
+            <div className="fullReadModalOverlay" onClick={() => setShowFullRead(false)}>
+              <div className="fullReadModal" onClick={(e) => e.stopPropagation()}>
+                <div className="fullReadModalHeader">
+                  <h2>Bacaan Lengkap</h2>
+                  <button className="modalCloseButton" onClick={() => setShowFullRead(false)}>
+                    ✕
+                  </button>
+                </div>
+                <div className="fullReadModalBody">
+                  <p>{lines.map((line) => line.text).join(' ') || 'Tidak ada teks untuk ditampilkan.'}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
+
 };
 
 export default Reading;

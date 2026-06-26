@@ -1,6 +1,7 @@
 {
   "title": "PENJAS - Topik 3",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas5-semester2/penjas/penjas-3/penjas-3.mp3",
+  "txt": "/bacaan/kelas5-semester2/penjas/penjas-3/penjas-3.txt",
+  "srt": "/bacaan/kelas5-semester2/penjas/penjas-3/penjas-3.srt",
+  "slides": "/bacaan/kelas5-semester2/penjas/penjas-3/slides"
 }

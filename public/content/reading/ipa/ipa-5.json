@@ -1,6 +1,7 @@
 {
   "title": "IPA - Topik 5",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/reading/ipa/ipa-5/ipa-5.mp3",
+  "txt": "/bacaan/reading/ipa/ipa-5/ipa-5.txt",
+  "srt": "/bacaan/reading/ipa/ipa-5/ipa-5.srt",
+  "slides": "/bacaan/reading/ipa/ipa-5/slides"
 }

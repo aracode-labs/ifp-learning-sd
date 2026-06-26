@@ -1,6 +1,7 @@
 {
   "title": "MATEMATIKA - Topik 3",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas1-semester1/matematika/matematika-3/matematika-3.mp3",
+  "txt": "/bacaan/kelas1-semester1/matematika/matematika-3/matematika-3.txt",
+  "srt": "/bacaan/kelas1-semester1/matematika/matematika-3/matematika-3.srt",
+  "slides": "/bacaan/kelas1-semester1/matematika/matematika-3/slides"
 }

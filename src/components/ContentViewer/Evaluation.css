@@ -30,22 +30,47 @@
 .evaluationLandscape{align-items:stretch}
 .evalSidebar{flex:0 0 120px}
 
+/* center meta text inside evaluation header */
+.evaluationRoot .readingHeader .readingMeta { text-align: center; }
+
+/* center the timer in the evaluation header */
+.evaluationRoot .readingHeader .evalTimer {
+	text-align: center;
+	margin-top: 8px;
+	font-weight: 700;
+	color: #0b2545;
+}
+
 /* navigation buttons centered under options */
 .readingActions{justify-content:center}
 .readingActions .primary{min-width:140px}
 
 /* widen the reading card for evaluation pages so questions appear more spacious */
-.evaluationRoot .readingCard{max-width:1100px;padding:28px}
+/* increase width by 200px and reduce height by 200px as requested */
+.evaluationRoot .readingCard{max-width:1400px;padding:28px;height:calc(80vh - 200px)}
+
+/* force evalBoard/article width to 80vw */
+.evaluationRoot .readingCard.evalBoard { width: 80vw; max-width: 100%; }
 
 /* evalLayout: mirror TopicIntro two-column proportions */
-.evalLayout{display:flex;gap:24px;width:100%;max-width:1100px;align-items:stretch;justify-content:flex-start;height:min(62vh,760px);margin:0 auto}
+.evalLayout{display:flex;gap:24px;width:100%;max-width:1400px;align-items:stretch;justify-content:flex-start;height:min(62vh,760px);margin:0 auto}
 .evalBoard{flex:1 1 auto;display:flex;flex-direction:column;gap:16px;background:transparent;border-radius:12px;padding:20px;box-shadow:none}
+.evalLayout .evalBoard{transform:translate(-10px,50px)}
+
 .evalLayout .evalCharacter{flex:0 0 420px;max-width:420px}
+
+/* shift character container left 100px and up 200px as requested */
+.evalLayout .evalCharacter {
+	position: relative;
+	transform: translate(-80px, -120px);
+	z-index: 20;
+}
 
 @media(max-width:900px){
 	.evalLayout{flex-direction:column;height:auto}
-	.evalLayout .evalCharacter{max-width:100%;display:flex;justify-content:center}
+	.evalLayout .evalCharacter{max-width:100%;display:flex;justify-content:center;transform:none}
 	.evalBoard{width:100%}
+	.evalLayout .evalBoard{transform:none}
 }
 
 /* evaluation page background */

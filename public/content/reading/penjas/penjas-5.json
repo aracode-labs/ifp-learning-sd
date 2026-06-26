@@ -1,6 +1,7 @@
 {
   "title": "PENJAS - Topik 5",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/reading/penjas/penjas-5/penjas-5.mp3",
+  "txt": "/bacaan/reading/penjas/penjas-5/penjas-5.txt",
+  "srt": "/bacaan/reading/penjas/penjas-5/penjas-5.srt",
+  "slides": "/bacaan/reading/penjas/penjas-5/slides"
 }

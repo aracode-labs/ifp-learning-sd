@@ -1,6 +1,7 @@
 {
   "title": "MATEMATIKA - Topik 6",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas6-semester1/matematika/matematika-6/matematika-6.mp3",
+  "txt": "/bacaan/kelas6-semester1/matematika/matematika-6/matematika-6.txt",
+  "srt": "/bacaan/kelas6-semester1/matematika/matematika-6/matematika-6.srt",
+  "slides": "/bacaan/kelas6-semester1/matematika/matematika-6/slides"
 }

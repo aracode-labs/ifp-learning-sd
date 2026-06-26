@@ -1,6 +1,7 @@
 {
   "title": "BAHASA-INGGRIS - Topik 1",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas3-semester1/bahasa-inggris/bahasa-inggris-1/bahasa-inggris-1.mp3",
+  "txt": "/bacaan/kelas3-semester1/bahasa-inggris/bahasa-inggris-1/bahasa-inggris-1.txt",
+  "srt": "/bacaan/kelas3-semester1/bahasa-inggris/bahasa-inggris-1/bahasa-inggris-1.srt",
+  "slides": "/bacaan/kelas3-semester1/bahasa-inggris/bahasa-inggris-1/slides"
 }

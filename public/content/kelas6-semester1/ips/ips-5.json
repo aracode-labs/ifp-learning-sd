@@ -1,6 +1,7 @@
 {
   "title": "IPS - Topik 5",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas6-semester1/ips/ips-5/ips-5.mp3",
+  "txt": "/bacaan/kelas6-semester1/ips/ips-5/ips-5.txt",
+  "srt": "/bacaan/kelas6-semester1/ips/ips-5/ips-5.srt",
+  "slides": "/bacaan/kelas6-semester1/ips/ips-5/slides"
 }

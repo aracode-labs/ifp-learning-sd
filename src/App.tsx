@@ -7,7 +7,6 @@ import TopicIntro from '@/components/TopicIntro';
 import ContentSelector from '@/components/ContentSelector';
 import ContentViewer from '@/components/ContentViewer/ContentViewer';
 import CharacterAnimator from '@/components/CharacterAnimator/CharacterAnimator';
-import useKarakterFrames from '@/hooks/useKarakterFrames';
 import ReadingModule from '@/components/Reading/Reading';
 import './App.css';
 
@@ -27,20 +26,13 @@ function App() {
             path="/anim"
             element={
               <div style={{ padding: 20 }}>
-                {
-                  (() => {
-                    const karakterFrames = useKarakterFrames();
-                    return (
-                      <CharacterAnimator
-                        frames={karakterFrames}
-                        fps={12}
-                        autoplay={true}
-                        autoSize={true}
-                        scale={'80%'}
-                      />
-                    );
-                  })()
-                }
+                <CharacterAnimator
+                  animation="karakter_menjelaskan"
+                  fps={12}
+                  autoplay={true}
+                  autoSize={true}
+                  scale={'80%'}
+                />
               </div>
             }
           />

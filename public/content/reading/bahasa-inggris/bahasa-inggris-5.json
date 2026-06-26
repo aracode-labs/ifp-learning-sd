@@ -1,6 +1,7 @@
 {
   "title": "BAHASA-INGGRIS - Topik 5",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/reading/bahasa-inggris/bahasa-inggris-5/bahasa-inggris-5.mp3",
+  "txt": "/bacaan/reading/bahasa-inggris/bahasa-inggris-5/bahasa-inggris-5.txt",
+  "srt": "/bacaan/reading/bahasa-inggris/bahasa-inggris-5/bahasa-inggris-5.srt",
+  "slides": "/bacaan/reading/bahasa-inggris/bahasa-inggris-5/slides"
 }

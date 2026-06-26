@@ -1,5 +1,5 @@
-.readingRoot{min-height:100vh;height:100vh;padding:28px 24px;background-image:url('/background/bg-reading.png');background-size:cover;background-position:center center;background-repeat:no-repeat;background-attachment:fixed;display:flex;flex-direction:column;align-items:stretch;font-family:Peralta, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
-.readingInner{width:100%;max-width:1200px;margin:0 auto;display:flex;gap:28px;flex:1}
+.readingRoot{min-height:100vh;height:100vh;padding:28px 24px;background-image:url('/background/bg-reading.png');background-size:cover;background-position:center center;background-repeat:no-repeat;background-attachment:fixed;display:flex;flex-direction:column;align-items:stretch;font-family:Peralta, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;overflow:hidden;}
+.readingInner{width:100%;max-width:1200px;margin:0 auto;display:flex;gap:28px;flex:1;overflow:visible;}
 .readingRight{flex:1 1 100%;display:flex;flex-direction:column;gap:18px;height:100%}
 .readingHeader{margin:0}
 .readingTitle{font-size:30px;margin:0;color:#0b2545}

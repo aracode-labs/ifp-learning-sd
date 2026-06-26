@@ -1,16 +1,9 @@
-import defaultKarakterFrames from '@/config/karakter';
+import defaultKarakterFrames, { createKarakterFrames } from '@/config/karakter';
+import type { FrameSource } from '@/utils/frameLoader';
 
-type KarakterFrames = {
-  basePath: string;
-  pattern: string;
-  start: number;
-  end: number;
-  zeroPad?: number;
-};
-
-export default function useKarakterFrames(folder?: string): KarakterFrames {
+export default function useKarakterFrames(folder?: string): FrameSource {
   if (folder && typeof folder === 'string' && folder.trim().length > 0) {
-    return { ...defaultKarakterFrames, basePath: folder };
+    return createKarakterFrames(folder);
   }
   return { ...defaultKarakterFrames };
 }

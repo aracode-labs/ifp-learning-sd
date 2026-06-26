@@ -1,6 +1,7 @@
 {
   "title": "PENJAS - Topik 2",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas2-semester2/penjas/penjas-2/penjas-2.mp3",
+  "txt": "/bacaan/kelas2-semester2/penjas/penjas-2/penjas-2.txt",
+  "srt": "/bacaan/kelas2-semester2/penjas/penjas-2/penjas-2.srt",
+  "slides": "/bacaan/kelas2-semester2/penjas/penjas-2/slides"
 }

@@ -1,6 +1,7 @@
 {
   "title": "IPA - Topik 3",
-  "audio": "/audio/bacaan/ipa_dummy.MP3",
-  "txt": "/audio/bacaan/ipa_dummy.txt",
-  "srt": "/audio/bacaan/ipa_dummy.srt"
+  "audio": "/bacaan/kelas3-semester2/ipa/ipa-3/ipa-3.mp3",
+  "txt": "/bacaan/kelas3-semester2/ipa/ipa-3/ipa-3.txt",
+  "srt": "/bacaan/kelas3-semester2/ipa/ipa-3/ipa-3.srt",
+  "slides": "/bacaan/kelas3-semester2/ipa/ipa-3/slides"
 }

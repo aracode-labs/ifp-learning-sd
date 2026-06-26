@@ -4,7 +4,6 @@ import { useAppContext } from '@/context/AppContext';
 import { useSubjectContent } from '@/hooks/useData';
 import styles from './TopicIntro.module.css';
 import CharacterAnimator from '@/components/CharacterAnimator/CharacterAnimator';
-import useKarakterFrames from '@/hooks/useKarakterFrames';
 
 const TopicIntro: React.FC = () => {
   const navigate = useNavigate();
@@ -47,11 +46,10 @@ const TopicIntro: React.FC = () => {
         <div className={styles.twoCol}>
           <div className={styles.left}>
             {(() => {
-              const karakterFrames = useKarakterFrames(topicData?.characterFolder || undefined);
               return (
                 <div className={styles.character}>
                   <CharacterAnimator
-                    frames={karakterFrames}
+                    animation={topicData?.characterFolder || 'karakter_idle'}
                     fps={12}
                     autoplay={true}
                     autoSize={true}

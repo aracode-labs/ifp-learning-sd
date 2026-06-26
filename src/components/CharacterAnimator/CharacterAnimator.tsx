@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useCallback, useEffect, useRef, useImperativeHandle, forwardRef, useMemo } from 'react';
 import styles from './CharacterAnimator.module.css';
 import { preloadFrames, FrameSource } from '@/utils/frameLoader';
+import defaultKarakterFrames, { createKarakterFrames } from '@/config/karakter';
 
 type AnimatorHandle = {
   play: () => void;
@@ -10,7 +11,13 @@ type AnimatorHandle = {
 };
 
 type Props = {
-  frames: string[] | FrameSource;
+  frames?: string[] | FrameSource;
+  animation?: string;
+  animationBasePath?: string;
+  animationPattern?: string;
+  animationStart?: number;
+  animationEnd?: number;
+  animationZeroPad?: number;
   fps?: number;
   loop?: boolean;
   autoplay?: boolean;
@@ -27,6 +34,12 @@ type Props = {
 const CharacterAnimator = forwardRef<AnimatorHandle, Props>((props, ref) => {
   const {
     frames,
+    animation,
+    animationBasePath,
+    animationPattern,
+    animationStart,
+    animationEnd,
+    animationZeroPad,
     fps = 30,
     loop = true,
     autoplay = true,
@@ -38,6 +51,20 @@ const CharacterAnimator = forwardRef<AnimatorHandle, Props>((props, ref) => {
     onReady,
     onProgress,
   } = props;
+
+  const effectiveFrames = useMemo<string[] | FrameSource>(() => {
+    if (frames) return frames;
+    if (animation) {
+      return createKarakterFrames(animation, {
+        basePath: animationBasePath,
+        pattern: animationPattern,
+        start: animationStart,
+        end: animationEnd,
+        zeroPad: animationZeroPad,
+      });
+    }
+    return defaultKarakterFrames;
+  }, [frames, animation, animationBasePath, animationPattern, animationStart, animationEnd, animationZeroPad]);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -114,6 +141,17 @@ const CharacterAnimator = forwardRef<AnimatorHandle, Props>((props, ref) => {
     const y = (cssH - ih) / 2;
     ctx.drawImage(img, x, y, iw, ih);
   }, [scale, props.autoSize]);
+
+  useEffect(() => {
+    currentFrameRef.current = 0;
+    elapsedRef.current = 0;
+    startTimeRef.current = null;
+    lastTimeRef.current = null;
+    if (!playingRef.current) {
+      // ensure the first frame renders immediately when animation changes
+      renderFrame();
+    }
+  }, [effectiveFrames, renderFrame]);
 
   const loopStep = useCallback((time: number) => {
     const imgs = imagesRef.current;
@@ -298,10 +336,12 @@ const CharacterAnimator = forwardRef<AnimatorHandle, Props>((props, ref) => {
 
   useEffect(() => {
     let mounted = true;
-    preloadFrames(frames, (loaded: number, total: number) => onProgress && onProgress(loaded, total))
+    preloadFrames(effectiveFrames, (loaded: number, total: number) => onProgress && onProgress(loaded, total))
       .then((imgs: HTMLImageElement[]) => {
         if (!mounted) return;
         imagesRef.current = imgs;
+        currentFrameRef.current = Math.min(currentFrameRef.current, imgs.length - 1);
+        elapsedRef.current = 0;
         updateCanvasSize();
         onReady && onReady();
         if (autoplay) startLoop();
@@ -328,7 +368,7 @@ const CharacterAnimator = forwardRef<AnimatorHandle, Props>((props, ref) => {
 
     return () => { mounted = false; stopLoop(); window.removeEventListener('resize', onResize); if (ro && containerRef.current) ro.unobserve(containerRef.current); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [frames, fps, autoplay, width, height, onReady, renderFrame]);
+  }, [effectiveFrames, fps, autoplay, width, height, onReady, renderFrame]);
 
   useEffect(() => {
     if (playingRef.current) {

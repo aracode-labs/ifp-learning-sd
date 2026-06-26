@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Reading.css';
 import './Evaluation.css';
 import CharacterAnimator from '@/components/CharacterAnimator/CharacterAnimator';
-import useKarakterFrames from '@/hooks/useKarakterFrames';
 // character removed from evaluation layout
 
 type Question = {
@@ -77,8 +76,6 @@ const Evaluation: React.FC<Props> = ({ topicId = '' }) => {
   };
 
   // use 40 frames (karakter_idle0001.png .. karakter_idle0040.png)
-  const karakterFrames = useKarakterFrames();
-  // karakterFrames removed — evaluation no longer shows character
 
   return (
     <div className="readingRoot evaluationRoot">
@@ -96,7 +93,7 @@ const Evaluation: React.FC<Props> = ({ topicId = '' }) => {
           <div className="evalLayout">
             <div className="evalCharacter">
               <CharacterAnimator
-                frames={karakterFrames}
+                animation="karakter_idle"
                 fps={12}
                 autoplay={true}
                 autoSize={true}
